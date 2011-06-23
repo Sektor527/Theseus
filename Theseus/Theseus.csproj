@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Maze.cs" />
+    <Compile Include="Data\Cell.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
