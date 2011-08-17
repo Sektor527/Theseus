@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Data\Maze.cs" />
     <Compile Include="Data\Cell.cs" />
+    <Compile Include="Generators\GeneratorDepthFirst.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
