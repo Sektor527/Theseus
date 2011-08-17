@@ -10,11 +10,14 @@ namespace UnitTests.Data
 		[Test]
 		public void CreateEmptyMaze()
 		{
-			var maze = new Maze(5, 5);
+			var maze = new Maze(4, 6);
 
-			for (int x = 0; x < 5; ++x)
+			Assert.AreEqual(4, maze.Size.X);
+			Assert.AreEqual(6, maze.Size.Y);
+
+			for (int x = 0; x < maze.Size.X; ++x)
 			{
-				for (int y = 0; y < 5; ++y)
+				for (int y = 0; y < maze.Size.Y; ++y)
 				{
 					var cell = maze.Cell(x, y);
 					Assert.IsNull(cell.North);
@@ -23,6 +26,7 @@ namespace UnitTests.Data
 					Assert.IsNull(cell.West);
 				}
 			}
+
 		}
 
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]

@@ -2,6 +2,17 @@
 
 namespace Theseus.Data
 {
+	struct Size
+	{
+		public Size(int x, int y)
+		{
+			X = x;
+			Y = y;
+		}
+		public int X;
+		public int Y;
+	}
+
 	internal class Maze
 	{
 		private readonly Cell[][] _cells;
@@ -9,6 +20,8 @@ namespace Theseus.Data
 		public Maze(int sizeX, int sizeY)
 		{
 			if (sizeX <= 0 || sizeY <= 0) throw new ArgumentOutOfRangeException(String.Format("Incorrect size specified to construct maze: {0} x {1}", sizeX, sizeY));
+
+			Size = new Size(sizeX, sizeY);
 
 			_cells = new Cell[sizeX][];
 			for (int x = 0; x < sizeX; ++x)
@@ -18,6 +31,8 @@ namespace Theseus.Data
 					_cells[x][y] = new Cell();
 			}
 		}
+
+		public Size Size { private set; get; }
 
 		public Cell Cell(int x, int y)
 		{
