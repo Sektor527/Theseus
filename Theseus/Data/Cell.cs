@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Theseus.Data
 {
@@ -17,49 +18,91 @@ namespace Theseus.Data
 		public Cell South { get; set; }
 		public Cell West { get; set; }
 
-		private void SetPath(Direction dir, Cell to)
+		public bool NorthOpen { get; set; }
+		public bool EastOpen { get; set; }
+		public bool SouthOpen { get; set; }
+		public bool WestOpen { get; set; }
+
+		public List<Cell> Neighbors
 		{
-			switch (dir)
+			get
+			{
+				List<Cell> result = new List<Cell>(4) { North, East, South, West };
+				return result;
+			}
+		}
+
+		public static void CreatePath(Cell from, Cell to)
+		{
+			if (!from.Neighbors.Contains(to)) throw new ArgumentException();
+
+			if (from.North == to)
+			{
+				from.NorthOpen = true;
+				to.SouthOpen = true;
+			}
+
+			if (from.East == to)
+			{
+				from.EastOpen = true;
+				to.WestOpen = true;
+			}
+
+			if (from.South == to)
+			{
+				from.SouthOpen = true;
+				to.NorthOpen = true;
+			}
+
+			if (from.West == to)
+			{
+				from.WestOpen = true;
+				to.EastOpen = true;
+			}
+		}
+
+		public static void CreatePath(Cell from, Direction direction)
+		{
+			Cell to;
+
+			switch (direction)
 			{
 				case Direction.North:
-					North = to;
+					to = from.North;
+					from.NorthOpen = true;
+					to.SouthOpen = true;
 					break;
+
 				case Direction.East:
-					East = to;
+					to = from.East;
+					from.EastOpen = true;
+					to.WestOpen = true;
 					break;
+
 				case Direction.South:
-					South = to;
+					to = from.South;
+					from.SouthOpen = true;
+					to.NorthOpen = true;
 					break;
+
 				case Direction.West:
-					West = to;
+					to = from.West;
+					from.WestOpen = true;
+					to.EastOpen = true;
 					break;
 			}
 		}
 
-		public static void CreatePath(Cell from, Direction fromdir, Cell to)
+		public bool IsPath(Direction direction)
 		{
-			Direction todir;
-			switch (fromdir)
+			switch (direction)
 			{
-				case Direction.North:
-					CreatePath(from, fromdir, to, Direction.South);
-					break;
-				case Direction.South:
-					CreatePath(from, fromdir, to, Direction.North);
-					break;
-				case Direction.East:
-					CreatePath(from, fromdir, to, Direction.West);
-					break;
-				case Direction.West:
-					CreatePath(from, fromdir, to, Direction.East);
-					break;
+				case Direction.North: return NorthOpen;
+				case Direction.East: return EastOpen;
+				case Direction.South: return SouthOpen;
+				case Direction.West: return WestOpen;
+				default: throw new InvalidOperationException("Unknown direction " + direction.ToString());
 			}
-		}
-
-		public static void CreatePath(Cell from, Direction fromdir, Cell to, Direction todir)
-		{
-			from.SetPath(fromdir, to);
-			to.SetPath(todir, from);
 		}
 	}
 }

@@ -15,18 +15,7 @@ namespace UnitTests.Data
 			Assert.AreEqual(4, maze.Size.X);
 			Assert.AreEqual(6, maze.Size.Y);
 
-			for (int x = 0; x < maze.Size.X; ++x)
-			{
-				for (int y = 0; y < maze.Size.Y; ++y)
-				{
-					var cell = maze.Cell(x, y);
-					Assert.IsNull(cell.North);
-					Assert.IsNull(cell.East);
-					Assert.IsNull(cell.South);
-					Assert.IsNull(cell.West);
-				}
-			}
-
+			Assert.AreEqual(4*6, maze.Cells.Count);
 		}
 
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
@@ -51,6 +40,111 @@ namespace UnitTests.Data
 		public void CreateMazeWithNegativeDimensions()
 		{
 			var maze = new Maze(-5, -5);
+		}
+
+		[Test]
+		public void CellNeighbors()
+		{
+			Maze maze = new Maze(3, 3);
+
+			foreach (Cell cell in maze.Cells)
+			{
+				Assert.Contains(cell.North, cell.Neighbors);
+				Assert.Contains(cell.East, cell.Neighbors);
+				Assert.Contains(cell.South, cell.Neighbors);
+				Assert.Contains(cell.West, cell.Neighbors);
+
+				Location loc = maze.Location(cell);
+
+				if (loc.X == 0)
+					Assert.IsNull(cell.West);
+				else
+					Assert.AreEqual(maze.Cell(loc.X - 1, loc.Y), cell.West);
+
+				if (loc.X == maze.Size.X - 1)
+					Assert.IsNull(cell.East);
+				else
+					Assert.AreEqual(maze.Cell(loc.X + 1, loc.Y), cell.East);
+
+				if (loc.Y == 0)
+					Assert.IsNull(cell.North);
+				else
+					Assert.AreEqual(maze.Cell(loc.X, loc.Y - 1), cell.North);
+
+				if (loc.Y == maze.Size.Y - 1)
+					Assert.IsNull(cell.South);
+				else
+					Assert.AreEqual(maze.Cell(loc.X, loc.Y + 1), cell.South);
+			}
+		}
+
+		[Test]
+		public void InitialWalls()
+		{
+			Maze maze = new Maze(3, 3);
+
+			foreach (Cell cell in maze.Cells)
+			{
+				Assert.IsFalse(cell.IsPath(Cell.Direction.North));
+				Assert.IsFalse(cell.IsPath(Cell.Direction.East));
+				Assert.IsFalse(cell.IsPath(Cell.Direction.South));
+				Assert.IsFalse(cell.IsPath(Cell.Direction.West));
+			}
+		}
+
+		[Test]
+		public void CreatePathUsingCell()
+		{
+			Maze maze = new Maze(3,3);
+
+			Cell from = maze.Cell(1, 1);
+			Cell to = maze.Cell(2, 1);
+
+			Cell.CreatePath(from, to);
+
+			Assert.IsTrue(from.IsPath(Cell.Direction.East));
+			Assert.IsTrue(to.IsPath(Cell.Direction.West));
+
+			Assert.IsFalse(from.IsPath(Cell.Direction.North));
+			Assert.IsFalse(from.IsPath(Cell.Direction.South));
+			Assert.IsFalse(from.IsPath(Cell.Direction.West));
+
+			Assert.IsFalse(to.IsPath(Cell.Direction.North));
+			Assert.IsFalse(to.IsPath(Cell.Direction.East));
+			Assert.IsFalse(to.IsPath(Cell.Direction.South));
+		}
+
+		[Test, ExpectedException(typeof(ArgumentException))]
+		public void CreatePathUsingNonNeighborCell()
+		{
+			Maze maze = new Maze(3, 3);
+
+			Cell from = maze.Cell(1, 1);
+			Cell to = maze.Cell(2, 2);
+
+			Cell.CreatePath(from, to);
+		}
+
+		[Test]
+		public void CreatePathUsingDirection()
+		{
+			Maze maze = new Maze(3, 3);
+
+			Cell from = maze.Cell(1, 1);
+			Cell to = maze.Cell(2, 1);
+
+			Cell.CreatePath(from, Cell.Direction.East);
+
+			Assert.IsTrue(from.IsPath(Cell.Direction.East));
+			Assert.IsTrue(to.IsPath(Cell.Direction.West));
+
+			Assert.IsFalse(from.IsPath(Cell.Direction.North));
+			Assert.IsFalse(from.IsPath(Cell.Direction.South));
+			Assert.IsFalse(from.IsPath(Cell.Direction.West));
+
+			Assert.IsFalse(to.IsPath(Cell.Direction.North));
+			Assert.IsFalse(to.IsPath(Cell.Direction.East));
+			Assert.IsFalse(to.IsPath(Cell.Direction.South));
 		}
 	}
 }
