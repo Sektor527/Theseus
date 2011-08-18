@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleViewer", "ConsoleViewer\ConsoleViewer.csproj", "{B20FF8EA-61EC-4818-BA0B-06795F7326FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinformsViewer", "WinformsViewer\WinformsViewer.csproj", "{68F84FE9-2BD2-4E68-8B42-488E6E217AC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{B20FF8EA-61EC-4818-BA0B-06795F7326FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B20FF8EA-61EC-4818-BA0B-06795F7326FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B20FF8EA-61EC-4818-BA0B-06795F7326FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68F84FE9-2BD2-4E68-8B42-488E6E217AC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68F84FE9-2BD2-4E68-8B42-488E6E217AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68F84FE9-2BD2-4E68-8B42-488E6E217AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68F84FE9-2BD2-4E68-8B42-488E6E217AC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
