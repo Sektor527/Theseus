@@ -157,15 +157,55 @@ namespace Theseus.Data
 						else // Vertical room line
 						{
 							// Rooms
-							if (Cell((x - 1) / 2, (y - 1) / 2) == Entrance)
-								plot[x][y] = 2;
-							else if (Cell((x - 1) / 2, (y - 1) / 2) == Exit)
-								plot[x][y] = 3;
-							else
-								plot[x][y] = 0;
+							plot[x][y] = 0;
 						}
 					}
 				}
+			}
+
+			int plotX;
+			int plotY;
+
+			// Entrance
+			plotX = Location(Entrance).X * 2 + 1;
+			plotY = Location(Entrance).Y * 2 + 1;
+
+			if (Entrance.North == null)
+			{
+				plot[plotX][plotY - 1] = 2;
+			}
+			else if (Entrance.South == null)
+			{
+				plot[plotX][plotY + 1] = 2;
+			}
+			else if (Entrance.West == null)
+			{
+				plot[plotX - 1][plotY] = 2;
+			}
+			else if (Entrance.East == null)
+			{
+				plot[plotX + 1][plotY] = 2;
+			}
+
+			// Exit
+			plotX = Location(Exit).X * 2 + 1;
+			plotY = Location(Exit).Y * 2 + 1;
+
+			if (Exit.North == null)
+			{
+				plot[plotX][plotY - 1] = 3;
+			}
+			else if (Exit.South == null)
+			{
+				plot[plotX][plotY + 1] = 3;
+			}
+			else if (Exit.West == null)
+			{
+				plot[plotX - 1][plotY] = 3;
+			}
+			else if (Exit.East == null)
+			{
+				plot[plotX + 1][plotY] = 3;
 			}
 
 			return plot;
