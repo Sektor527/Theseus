@@ -14,7 +14,7 @@ namespace ConsoleViewer
 		{
 			Maze maze = new Maze(6, 4);
 
-			GeneratorDepthFirst.Generate(maze);
+			GeneratorDepthFirst.Generate(maze, true);
 			Draw(maze.Plot());
 
 			Console.ReadKey();

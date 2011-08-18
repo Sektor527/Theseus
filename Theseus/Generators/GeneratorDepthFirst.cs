@@ -13,31 +13,51 @@ namespace Theseus.Generators
 
 		private static Maze _maze;
 
-		public static void Generate(Maze maze)
+		public static void Generate(Maze maze, bool random)
 		{
 			// Initialize
 			_maze = maze;
 			_visited = new List<Cell>(maze.Size.X * maze.Size.Y);
 
 			// Choose start cell
-			Cell exit = maze.Cell(Rnd.Next(maze.Size.X - 1), maze.Size.Y - 1);
+			Cell exit;
+			if (random)
+				exit = maze.Cell(Rnd.Next(maze.Size.X - 1), maze.Size.Y - 1);
+			else
+				exit = maze.Cell(0, 0);
 
 			// Recursively go through cells and link them up with one another
-			Visit(exit);
+			Visit(exit, random);
 		}
 
-		private static void Visit(Cell cell)
+		private static void Visit(Cell cell, bool random)
 		{
 			_visited.Add(cell);
 
-			// TODO: randomize order of Neighbors to make an interesting maze
-			foreach (Cell neighbor in cell.Neighbors)
+			List<Cell> neighbors = cell.Neighbors;
+			if (random)
+				neighbors.Shuffle();
+
+			foreach (Cell neighbor in neighbors)
 			{
 				if (neighbor == null) continue;
 				if (_visited.Contains(neighbor)) continue;
 
 				Cell.CreatePath(cell, neighbor);
-				Visit(neighbor);
+				Visit(neighbor, random);
+			}
+		}
+
+		private static void Shuffle<T>(this IList<T> list)
+		{
+			int n = list.Count;
+			while (n > 1)
+			{
+				n--;
+				int k = Rnd.Next(n + 1);
+				T value = list[k];
+				list[k] = list[n];
+				list[n] = value;
 			}
 		}
 	}
