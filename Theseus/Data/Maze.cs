@@ -100,6 +100,16 @@ namespace Theseus.Data
 			throw new ArgumentException("Cell could not be found in maze");
 		}
 
+		public void Reset()
+		{
+			foreach (Cell cell in Cells)
+			{
+				cell.NorthOpen = false;
+				cell.EastOpen = false;
+				cell.SouthOpen = false;
+				cell.WestOpen = false;
+			}
+		}
 		public byte[][] Plot()
 		{
 			byte[][] plot = new byte[Size.X * 2 + 1][];
