@@ -28,13 +28,24 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.canvas = new System.Windows.Forms.Panel();
 			this.SuspendLayout();
+			// 
+			// canvas
+			// 
+			this.canvas.BackColor = System.Drawing.Color.White;
+			this.canvas.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.canvas.Location = new System.Drawing.Point(0, 0);
+			this.canvas.Name = "canvas";
+			this.canvas.Size = new System.Drawing.Size(599, 451);
+			this.canvas.TabIndex = 0;
 			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(284, 262);
+			this.ClientSize = new System.Drawing.Size(599, 451);
+			this.Controls.Add(this.canvas);
 			this.Name = "FormMain";
 			this.Text = "Theseus";
 			this.ResumeLayout(false);
@@ -42,6 +53,8 @@
 		}
 
 		#endregion
+
+		private System.Windows.Forms.Panel canvas;
 
 	}
 }
