@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Theseus.Data;
+using Theseus.Generators;
 
 namespace ConsoleViewer
 {
@@ -11,22 +12,12 @@ namespace ConsoleViewer
 	{
 		static void Main(string[] args)
 		{
-			Maze maze = new Maze(4, 6);
+			Maze maze = new Maze(6, 4);
 
-			Generate(maze);
+			GeneratorDepthFirst.Generate(maze);
 			Draw(maze.Plot());
 
 			Console.ReadKey();
-		}
-
-		private static void Generate(Maze maze)
-		{
-			Cell start = maze.Cell(0, 0);
-			Cell.CreatePath(start, Cell.Direction.South);
-			Cell.CreatePath(maze.Cell(0, 1), maze.Cell(1, 1));
-			Cell.CreatePath(maze.Cell(1, 1), maze.Cell(1, 2));
-			Cell.CreatePath(maze.Cell(1, 1), maze.Cell(2, 1));
-			Cell.CreatePath(maze.Cell(0, 1), maze.Cell(0, 2));
 		}
 
 		private static void Draw(byte[][] plot)
