@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Theseus.Data;
 using Theseus.Generators;
+using WinformsViewer.Generators;
 
 namespace WinformsViewer
 {
@@ -25,13 +26,12 @@ namespace WinformsViewer
 
 		private void FormMain_Load(object sender, EventArgs e)
 		{
-			_maze = new Maze(100, 60);
-			ConfiguratorDepthFirst conf = new ConfiguratorDepthFirst { RandomTraverse = true };
-			GeneratorDepthFirst.Generate(_maze, conf);
 		}
 
 		private void canvas_Paint(object sender, PaintEventArgs e)
 		{
+			if (_maze == null) return;
+
 			byte[][] plot = _maze.Plot();
 
 			using (Graphics graphics = e.Graphics)
@@ -70,6 +70,17 @@ namespace WinformsViewer
 					}
 				}
 			}
+		}
+
+		private void depthFirstToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			FormGenerate form = new FormGenerate();
+			DialogResult res = form.ShowDialog();
+			if (res == DialogResult.Cancel) return;
+
+			_maze = form.Maze;
+
+			canvas.Refresh();
 		}
 	}
 }

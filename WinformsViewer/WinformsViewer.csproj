@@ -48,16 +48,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Generators\FormGenerate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generators\FormGenerate.Designer.cs">
+      <DependentUpon>FormGenerate.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Generators\PanelGeneratorDepthFirst.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Generators\PanelGeneratorDepthFirst.Designer.cs">
+      <DependentUpon>PanelGeneratorDepthFirst.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Generators\FormGenerate.resx">
+      <DependentUpon>FormGenerate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generators\PanelGeneratorDepthFirst.resx">
+      <DependentUpon>PanelGeneratorDepthFirst.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
