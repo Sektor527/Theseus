@@ -12,7 +12,31 @@ namespace ConsoleViewer
 	{
 		static void Main(string[] args)
 		{
-			Maze maze = new Maze(6, 4);
+			int sizeX = 20, sizeY = 10;
+
+			if (args.Length == 1)
+			{
+				int arg;
+				if (int.TryParse(args[0], out arg))
+				{
+					sizeX = arg;
+					sizeY = arg;
+				}
+			}
+			else if (args.Length >= 2)
+			{
+				int arg1;
+				int arg2;
+				if (!int.TryParse(args[0], out arg1))
+				{
+					sizeX = arg1;
+				}
+				if (!int.TryParse(args[1], out arg2))
+				{
+					sizeY = arg2;
+				}
+			}
+			Maze maze = new Maze(sizeX, sizeY);
 
 			GeneratorDepthFirst.Generate(maze, true);
 			Draw(maze.Plot());
