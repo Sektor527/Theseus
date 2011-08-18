@@ -60,6 +60,10 @@ namespace Theseus.Data
 					if (y < sizeY - 1) cell.South = _cells[x][y + 1];
 				}
 			}
+
+			// Set default entrance and exit
+			Entrance = _cells[0][0];
+			Exit = _cells[sizeX - 1][sizeY - 1];
 		}
 
 		public Size Size { private set; get; }
