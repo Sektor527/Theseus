@@ -19,15 +19,8 @@ namespace Theseus.Generators
 			_maze = maze;
 			_visited = new List<Cell>(maze.Size.X * maze.Size.Y);
 
-			// Choose start cell
-			Cell exit;
-			if (random)
-				exit = maze.Cell(Rnd.Next(maze.Size.X - 1), maze.Size.Y - 1);
-			else
-				exit = maze.Cell(0, 0);
-
 			// Recursively go through cells and link them up with one another
-			Visit(exit, random);
+			Visit(maze.Exit, random);
 		}
 
 		private static void Visit(Cell cell, bool random)
