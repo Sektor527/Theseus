@@ -34,7 +34,26 @@ namespace ConsoleViewer
 			for (byte y = 0; y < plot[0].Length; ++y)
 			{
 				for (byte x = 0; x < plot.Length; ++x)
-					Console.Write(plot[x][y] == 0 ? " " : "*");
+				{
+					char c;
+					switch (plot[x][y])
+					{
+						case 0:	// Empty space
+							c = ' ';
+							break;
+						case 1:	// Wall
+							c = '*';
+							break;
+						case 2: // Entrance
+						case 3: // Exit
+							c = '.';
+							break;
+						default:
+							c = ' ';
+							break;
+					}
+					Console.Write(c);
+				}
 				Console.WriteLine();
 			}
 		}

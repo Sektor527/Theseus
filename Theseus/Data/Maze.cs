@@ -146,8 +146,13 @@ namespace Theseus.Data
 						}
 						else // Vertical room line
 						{
-							// Rooms are always open
-							plot[x][y] = 0;
+							// Rooms
+							if (Cell((x - 1) / 2, (y - 1) / 2) == Entrance)
+								plot[x][y] = 2;
+							else if (Cell((x - 1) / 2, (y - 1) / 2) == Exit)
+								plot[x][y] = 3;
+							else
+								plot[x][y] = 0;
 						}
 					}
 				}
