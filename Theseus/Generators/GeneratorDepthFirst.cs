@@ -6,12 +6,12 @@ using Theseus.Data;
 
 namespace Theseus.Generators
 {
-	struct ConfiguratorDepthFirst
+	public struct ConfiguratorDepthFirst
 	{
 		public bool RandomTraverse;
 	}
 
-	static class GeneratorDepthFirst
+	public static class GeneratorDepthFirst
 	{
 		private static Maze _maze;
 		private static ConfiguratorDepthFirst _configurator;

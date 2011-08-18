@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Theseus.Data
 {
-	struct Size
+	public struct Size
 	{
 		public Size(int x, int y)
 		{
@@ -14,7 +14,7 @@ namespace Theseus.Data
 		public int Y;
 	}
 
-	struct Location
+	public struct Location
 	{
 		public Location(int x, int y)
 		{
@@ -26,7 +26,7 @@ namespace Theseus.Data
 		public int Y;
 	}
 
-	internal class Maze
+	public class Maze
 	{
 		private readonly Cell[][] _cells;
 		public Cell Entrance { get; internal set; }

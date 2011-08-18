@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Theseus.Data
 {
-	class Cell
+	public class Cell
 	{
 		public enum Direction
 		{
