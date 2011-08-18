@@ -31,10 +31,10 @@ namespace ConsoleViewer
 
 		private static void Draw(byte[][] plot)
 		{
-			for (byte y = 0; y < plot.Length; ++y)
+			for (byte y = 0; y < plot[0].Length; ++y)
 			{
-				for (byte x = 0; x < plot[y].Length; ++x)
-					Console.Write(plot[y][x] == 0 ? " " : "*");
+				for (byte x = 0; x < plot.Length; ++x)
+					Console.Write(plot[x][y] == 0 ? " " : "*");
 				Console.WriteLine();
 			}
 		}
