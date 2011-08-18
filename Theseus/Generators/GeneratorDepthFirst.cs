@@ -6,29 +6,36 @@ using Theseus.Data;
 
 namespace Theseus.Generators
 {
+	struct ConfiguratorDepthFirst
+	{
+		public bool RandomTraverse;
+	}
+
 	static class GeneratorDepthFirst
 	{
+		private static Maze _maze;
+		private static ConfiguratorDepthFirst _configurator;
+
 		private static readonly Random Rnd = new Random((int)DateTime.Now.Ticks);
 		private static List<Cell> _visited;
 
-		private static Maze _maze;
-
-		public static void Generate(Maze maze, bool random)
+		public static void Generate(Maze maze, ConfiguratorDepthFirst configurator)
 		{
 			// Initialize
+			_configurator = configurator;
 			_maze = maze;
 			_visited = new List<Cell>(maze.Size.X * maze.Size.Y);
 
 			// Recursively go through cells and link them up with one another
-			Visit(maze.Exit, random);
+			Visit(maze.Exit);
 		}
 
-		private static void Visit(Cell cell, bool random)
+		private static void Visit(Cell cell)
 		{
 			_visited.Add(cell);
 
 			List<Cell> neighbors = cell.Neighbors;
-			if (random)
+			if (_configurator.RandomTraverse)
 				neighbors.Shuffle();
 
 			foreach (Cell neighbor in neighbors)
@@ -37,7 +44,7 @@ namespace Theseus.Generators
 				if (_visited.Contains(neighbor)) continue;
 
 				Cell.CreatePath(cell, neighbor);
-				Visit(neighbor, random);
+				Visit(neighbor);
 			}
 		}
 

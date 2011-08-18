@@ -36,13 +36,15 @@ namespace ConsoleViewer
 					sizeY = arg2;
 				}
 			}
+
 			Maze maze = new Maze(sizeX, sizeY);
+			ConfiguratorDepthFirst conf = new ConfiguratorDepthFirst { RandomTraverse = true };
 
 			bool quit = false;
 			while (!quit)
 			{
 				maze.Reset();
-				GeneratorDepthFirst.Generate(maze, true);
+				GeneratorDepthFirst.Generate(maze, conf);
 
 				Console.Clear();
 				Draw(maze);
