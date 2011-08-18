@@ -26,25 +26,40 @@ namespace Theseus.Generators
 			_maze = maze;
 			_visited = new List<Cell>(maze.Size.X * maze.Size.Y);
 
-			// Recursively go through cells and link them up with one another
 			Visit(maze.Exit);
 		}
 
 		private static void Visit(Cell cell)
 		{
+			Stack<Cell> running = new Stack<Cell>(_maze.Size.X * _maze.Size.Y);
+
 			_visited.Add(cell);
 
-			List<Cell> neighbors = cell.Neighbors;
-			if (_configurator.RandomTraverse)
-				neighbors.Shuffle();
-
-			foreach (Cell neighbor in neighbors)
+			running.Push(cell);
+			while (running.Count > 0)
 			{
-				if (neighbor == null) continue;
-				if (_visited.Contains(neighbor)) continue;
+				Cell current = running.Peek();
 
-				Cell.CreatePath(cell, neighbor);
-				Visit(neighbor);
+				List<Cell> neighbors = current.Neighbors;
+				if (_configurator.RandomTraverse)
+					neighbors.Shuffle();
+
+				bool finished = true;
+				foreach (Cell neighbor in neighbors)
+				{
+					if (neighbor == null) continue;
+					if (_visited.Contains(neighbor)) continue;
+
+					finished = false;
+
+					Cell.CreatePath(current, neighbor);
+					running.Push(neighbor);
+					_visited.Add(neighbor);
+					break;
+				}
+
+				if (finished)
+					running.Pop();
 			}
 		}
 
