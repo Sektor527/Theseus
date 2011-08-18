@@ -38,14 +38,25 @@ namespace ConsoleViewer
 			}
 			Maze maze = new Maze(sizeX, sizeY);
 
-			GeneratorDepthFirst.Generate(maze, true);
-			Draw(maze.Plot());
+			bool quit = false;
+			while (!quit)
+			{
+				maze.Reset();
+				GeneratorDepthFirst.Generate(maze, true);
 
-			Console.ReadKey();
+				Console.Clear();
+				Draw(maze);
+				DrawLegend();
+
+				ConsoleKeyInfo key = Console.ReadKey();
+				if (key.Key == ConsoleKey.Escape || key.Key == ConsoleKey.Q) quit = true;
+			}
+
 		}
 
-		private static void Draw(byte[][] plot)
+		private static void Draw(Maze maze)
 		{
+			byte[][] plot = maze.Plot();
 			for (byte y = 0; y < plot[0].Length; ++y)
 			{
 				for (byte x = 0; x < plot.Length; ++x)
@@ -71,6 +82,12 @@ namespace ConsoleViewer
 				}
 				Console.WriteLine();
 			}
+		}
+
+		private static void DrawLegend()
+		{
+			Console.WriteLine();
+			Console.WriteLine("<space> - new maze; <q> - quit");
 		}
 	}
 }
