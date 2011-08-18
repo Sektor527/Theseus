@@ -29,6 +29,8 @@ namespace Theseus.Data
 	internal class Maze
 	{
 		private readonly Cell[][] _cells;
+		public Cell Entrance { get; internal set; }
+		public Cell Exit { get; internal set; }
 
 		public Maze(int sizeX, int sizeY)
 		{
