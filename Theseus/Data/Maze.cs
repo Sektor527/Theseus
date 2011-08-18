@@ -93,5 +93,61 @@ namespace Theseus.Data
 
 			throw new ArgumentException("Cell could not be found in maze");
 		}
+
+		public byte[][] Plot()
+		{
+			byte[][] plot = new byte[Size.Y * 2 + 1][];
+			for (int y = 0; y < Size.Y * 2 + 1; ++y)
+			{
+				plot[y] = new byte[Size.X * 2 + 1];
+				for (int x = 0; x < Size.X * 2 + 1; ++x)
+				{
+					if (y % 2 == 0) // Horizontal wall line
+					{
+						if (y == Size.Y * 2) // Last horizontal line
+						{
+							plot[y][x] = 1;
+						}
+						else if (x % 2 == 0) // Vertical wall line
+						{
+							// Corner points are always filled
+							plot[y][x] = 1;
+						}
+						else // Vertical room line
+						{
+							// North-south passages
+							Cell cell = Cell((x - 1) / 2, y / 2);
+							if (cell.NorthOpen)
+								plot[y][x] = 0;
+							else
+								plot[y][x] = 1;
+						}
+					}
+					else // Horizontal room line
+					{
+						if (x == Size.X * 2) // Last vertical line
+						{
+							plot[y][x] = 1;
+						}
+						else if (x % 2 == 0) // Vertical wall line
+						{
+							// East-west passages
+							Cell cell = Cell(x / 2, (y - 1) / 2);
+							if (cell.WestOpen)
+								plot[y][x] = 0;
+							else
+								plot[y][x] = 1;
+						}
+						else // Vertical room line
+						{
+							// Rooms are always open
+							plot[y][x] = 0;
+						}
+					}
+				}
+			}
+
+			return plot;
+		}
 	}
 }
