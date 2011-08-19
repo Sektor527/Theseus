@@ -37,9 +37,9 @@ namespace WinformsViewer
 
 			using (Graphics graphics = e.Graphics)
 			{
-				for (byte y = 0; y < plot.Size.Y; ++y)
+				for (int y = 0; y < plot.Size.Y; ++y)
 				{
-					for (byte x = 0; x < plot.Size.X; ++x)
+					for (int x = 0; x < plot.Size.X; ++x)
 					{
 						// Color
 						Color color;
