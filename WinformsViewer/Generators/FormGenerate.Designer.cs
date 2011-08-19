@@ -156,6 +156,7 @@
 			this.Controls.Add(label2);
 			this.Name = "FormGenerate";
 			this.Text = "FormGenerate";
+			this.Load += new System.EventHandler(this.FormGenerate_Load);
 			((System.ComponentModel.ISupportInitialize)(this.numWidth)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numHeight)).EndInit();
 			this.groupSettings.ResumeLayout(false);

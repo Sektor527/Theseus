@@ -59,5 +59,10 @@ namespace WinformsViewer.Generators
 			}
 
 		}
+
+		private void FormGenerate_Load(object sender, EventArgs e)
+		{
+			comboAlgorithm.SelectedIndex = 0;
+		}
 	}
 }
