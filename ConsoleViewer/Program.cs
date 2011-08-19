@@ -67,14 +67,14 @@ namespace ConsoleViewer
 					char c;
 					switch (plot[x][y])
 					{
-						case 0:	// Empty space
+						case Pixels.Space:
 							c = ' ';
 							break;
-						case 1:	// Wall
+						case Pixels.Wall:
 							c = '*';
 							break;
-						case 2: // Entrance
-						case 3: // Exit
+						case Pixels.Entrance:
+						case Pixels.Exit:
 							c = '.';
 							break;
 						default:

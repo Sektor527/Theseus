@@ -16,42 +16,42 @@ namespace Theseus.Plotter
 					{
 						if (y == maze.Size.Y * 2) // Last horizontal line
 						{
-							plot[x][y] = 1;
+							plot[x][y] = Pixels.Wall;
 						}
 						else if (x % 2 == 0) // Vertical wall line
 						{
 							// Corner points are always filled
-							plot[x][y] = 1;
+							plot[x][y] = Pixels.Wall;
 						}
 						else // Vertical room line
 						{
 							// North-south passages
 							Cell cell = maze.Cell((x - 1) / 2, y / 2);
 							if (cell.NorthOpen)
-								plot[x][y] = 0;
+								plot[x][y] = Pixels.Space;
 							else
-								plot[x][y] = 1;
+								plot[x][y] = Pixels.Wall;
 						}
 					}
 					else // Horizontal room line
 					{
 						if (x == maze.Size.X * 2) // Last vertical line
 						{
-							plot[x][y] = 1;
+							plot[x][y] = Pixels.Wall;
 						}
 						else if (x % 2 == 0) // Vertical wall line
 						{
 							// East-west passages
 							Cell cell = maze.Cell(x / 2, (y - 1) / 2);
 							if (cell.WestOpen)
-								plot[x][y] = 0;
+								plot[x][y] = Pixels.Space;
 							else
-								plot[x][y] = 1;
+								plot[x][y] = Pixels.Wall;
 						}
 						else // Vertical room line
 						{
 							// Rooms
-							plot[x][y] = 0;
+							plot[x][y] = Pixels.Space;
 						}
 					}
 				}
@@ -66,19 +66,19 @@ namespace Theseus.Plotter
 
 			if (maze.Entrance.North == null)
 			{
-				plot[plotX][plotY - 1] = 2;
+				plot[plotX][plotY - 1] = Pixels.Entrance;
 			}
 			else if (maze.Entrance.South == null)
 			{
-				plot[plotX][plotY + 1] = 2;
+				plot[plotX][plotY + 1] = Pixels.Entrance;
 			}
 			else if (maze.Entrance.West == null)
 			{
-				plot[plotX - 1][plotY] = 2;
+				plot[plotX - 1][plotY] = Pixels.Entrance;
 			}
 			else if (maze.Entrance.East == null)
 			{
-				plot[plotX + 1][plotY] = 2;
+				plot[plotX + 1][plotY] = Pixels.Entrance;
 			}
 
 			// Exit
@@ -87,19 +87,19 @@ namespace Theseus.Plotter
 
 			if (maze.Exit.North == null)
 			{
-				plot[plotX][plotY - 1] = 3;
+				plot[plotX][plotY - 1] = Pixels.Exit;
 			}
 			else if (maze.Exit.South == null)
 			{
-				plot[plotX][plotY + 1] = 3;
+				plot[plotX][plotY + 1] = Pixels.Exit;
 			}
 			else if (maze.Exit.West == null)
 			{
-				plot[plotX - 1][plotY] = 3;
+				plot[plotX - 1][plotY] = Pixels.Exit;
 			}
 			else if (maze.Exit.East == null)
 			{
-				plot[plotX + 1][plotY] = 3;
+				plot[plotX + 1][plotY] = Pixels.Exit;
 			}
 
 			return plot;

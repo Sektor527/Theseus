@@ -45,16 +45,16 @@ namespace WinformsViewer
 						Color color;
 						switch (plot[x][y])
 						{
-							case 0: // Empty space
+							case Pixels.Space:
 								color = Color.White;
 								break;
-							case 1: // Wall
+							case Pixels.Wall:
 								color = Color.Black;
 								break;
-							case 2: // Entrance
+							case Pixels.Entrance:
 								color = Color.YellowGreen;
 								break;
-							case 3: // Exit
+							case Pixels.Exit:
 								color = Color.YellowGreen;
 								break;
 							default:
