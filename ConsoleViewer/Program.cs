@@ -59,13 +59,13 @@ namespace ConsoleViewer
 
 		private static void Draw(Maze maze)
 		{
-			byte[][] plot = Plotter.Plot(maze);
-			for (byte y = 0; y < plot[0].Length; ++y)
+			Plot plot = Plotter.Plot(maze);
+			for (byte y = 0; y < plot.Size.Y; ++y)
 			{
-				for (byte x = 0; x < plot.Length; ++x)
+				for (byte x = 0; x < plot.Size.X; ++x)
 				{
 					char c;
-					switch (plot[x][y])
+					switch (plot.Image[x][y])
 					{
 						case Pixels.Space:
 							c = ' ';

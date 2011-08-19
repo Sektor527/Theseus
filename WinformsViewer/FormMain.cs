@@ -33,17 +33,17 @@ namespace WinformsViewer
 		{
 			if (_maze == null) return;
 
-			byte[][] plot = Plotter.Plot(_maze);
+			Plot plot = Plotter.Plot(_maze);
 
 			using (Graphics graphics = e.Graphics)
 			{
-				for (byte y = 0; y < plot[0].Length; ++y)
+				for (byte y = 0; y < plot.Size.Y; ++y)
 				{
-					for (byte x = 0; x < plot.Length; ++x)
+					for (byte x = 0; x < plot.Size.X; ++x)
 					{
 						// Color
 						Color color;
-						switch (plot[x][y])
+						switch (plot.Image[x][y])
 						{
 							case Pixels.Space:
 								color = Color.White;
