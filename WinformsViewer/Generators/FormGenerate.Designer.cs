@@ -34,9 +34,9 @@
 			this.numWidth = new System.Windows.Forms.NumericUpDown();
 			this.numHeight = new System.Windows.Forms.NumericUpDown();
 			this.groupSettings = new System.Windows.Forms.GroupBox();
-			this.panelAlgorithmSettings = new WinformsViewer.Generators.PanelGeneratorDepthFirst();
 			this.btnCreate = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
+			this.panelAlgorithmSettings = new WinformsViewer.Generators.PanelGeneratorDepthFirst();
 			label2 = new System.Windows.Forms.Label();
 			label3 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.numWidth)).BeginInit();
@@ -78,11 +78,16 @@
 			// numWidth
 			// 
 			this.numWidth.Location = new System.Drawing.Point(54, 12);
+			this.numWidth.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
 			this.numWidth.Name = "numWidth";
 			this.numWidth.Size = new System.Drawing.Size(61, 20);
 			this.numWidth.TabIndex = 4;
 			this.numWidth.Value = new decimal(new int[] {
-            10,
+            100,
             0,
             0,
             0});
@@ -90,11 +95,16 @@
 			// numHeight
 			// 
 			this.numHeight.Location = new System.Drawing.Point(165, 12);
+			this.numHeight.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
 			this.numHeight.Name = "numHeight";
 			this.numHeight.Size = new System.Drawing.Size(61, 20);
 			this.numHeight.TabIndex = 5;
 			this.numHeight.Value = new decimal(new int[] {
-            10,
+            60,
             0,
             0,
             0});
@@ -108,16 +118,6 @@
 			this.groupSettings.Size = new System.Drawing.Size(214, 183);
 			this.groupSettings.TabIndex = 6;
 			this.groupSettings.TabStop = false;
-			// 
-			// panelAlgorithmSettings
-			// 
-			this.panelAlgorithmSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-									| System.Windows.Forms.AnchorStyles.Left)
-									| System.Windows.Forms.AnchorStyles.Right)));
-			this.panelAlgorithmSettings.Location = new System.Drawing.Point(6, 25);
-			this.panelAlgorithmSettings.Name = "panelAlgorithmSettings";
-			this.panelAlgorithmSettings.Size = new System.Drawing.Size(202, 152);
-			this.panelAlgorithmSettings.TabIndex = 1;
 			// 
 			// btnCreate
 			// 
@@ -139,6 +139,16 @@
 			this.btnCancel.TabIndex = 8;
 			this.btnCancel.Text = "Cancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
+			// 
+			// panelAlgorithmSettings
+			// 
+			this.panelAlgorithmSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+									| System.Windows.Forms.AnchorStyles.Left)
+									| System.Windows.Forms.AnchorStyles.Right)));
+			this.panelAlgorithmSettings.Location = new System.Drawing.Point(6, 25);
+			this.panelAlgorithmSettings.Name = "panelAlgorithmSettings";
+			this.panelAlgorithmSettings.Size = new System.Drawing.Size(202, 152);
+			this.panelAlgorithmSettings.TabIndex = 1;
 			// 
 			// FormGenerate
 			// 
