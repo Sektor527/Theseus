@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Theseus.Data;
 using Theseus.Generators;
 using WinformsViewer.Generators;
+using Theseus.Plotter;
 
 namespace WinformsViewer
 {
@@ -32,7 +33,7 @@ namespace WinformsViewer
 		{
 			if (_maze == null) return;
 
-			byte[][] plot = _maze.Plot();
+			byte[][] plot = Plotter.Plot(_maze);
 
 			using (Graphics graphics = e.Graphics)
 			{

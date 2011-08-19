@@ -5,6 +5,7 @@ using System.Text;
 
 using Theseus.Data;
 using Theseus.Generators;
+using Theseus.Plotter;
 
 namespace ConsoleViewer
 {
@@ -58,7 +59,7 @@ namespace ConsoleViewer
 
 		private static void Draw(Maze maze)
 		{
-			byte[][] plot = maze.Plot();
+			byte[][] plot = Plotter.Plot(maze);
 			for (byte y = 0; y < plot[0].Length; ++y)
 			{
 				for (byte x = 0; x < plot.Length; ++x)
