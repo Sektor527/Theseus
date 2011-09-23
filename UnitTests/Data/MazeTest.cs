@@ -146,5 +146,97 @@ namespace UnitTests.Data
 			Assert.IsFalse(to.IsPath(Cell.Direction.East));
 			Assert.IsFalse(to.IsPath(Cell.Direction.South));
 		}
+
+		[Test]
+		public void EqualsNullObject()
+		{
+			Maze maze = new Maze(3, 3);
+			Assert.False(maze.Equals(null));
+		}
+
+		[Test]
+		public void EqualsDifferentType()
+		{
+			Maze maze = new Maze(3, 3);
+			Assert.False(maze.Equals("maze"));
+		}
+
+		[Test]
+		public void EqualsDifferentSizes()
+		{
+			Maze maze1 = new Maze(3, 3);
+			Maze maze2 = new Maze(2, 3);
+			Maze maze3 = new Maze(3, 2);
+
+			Assert.False(maze1.Equals(maze2));
+			Assert.False(maze1.Equals(maze3));
+		}
+
+		[Test]
+		public void EqualsSameObject()
+		{
+			Maze maze = new Maze(3, 3);
+
+			Cell.CreatePath(maze.Cell(0, 0), Cell.Direction.East);
+			Cell.CreatePath(maze.Cell(0, 0), Cell.Direction.South);
+			Cell.CreatePath(maze.Cell(0, 1), Cell.Direction.South);
+
+			Assert.True(maze.Equals(maze));
+		}
+
+		[Test]
+		public void EqualsDifferentMazes()
+		{
+			Maze maze1 = new Maze(3, 3);
+
+			Cell.CreatePath(maze1.Cell(0, 0), Cell.Direction.East);
+			Cell.CreatePath(maze1.Cell(0, 0), Cell.Direction.South);
+			Cell.CreatePath(maze1.Cell(0, 1), Cell.Direction.South);
+
+			Maze maze2 = new Maze(3, 3);
+
+			Cell.CreatePath(maze2.Cell(0, 0), Cell.Direction.East);
+			Cell.CreatePath(maze2.Cell(0, 1), Cell.Direction.South);
+
+			Assert.False(maze1.Equals(maze2));
+		}
+
+		[Test]
+		public void EqualsSameMazes()
+		{
+			Maze maze1 = new Maze(3, 3);
+
+			Cell.CreatePath(maze1.Cell(0, 0), Cell.Direction.East);
+			Cell.CreatePath(maze1.Cell(0, 0), Cell.Direction.South);
+			Cell.CreatePath(maze1.Cell(0, 1), Cell.Direction.South);
+
+			Maze maze2 = new Maze(3, 3);
+
+			Cell.CreatePath(maze2.Cell(0, 0), Cell.Direction.East);
+			Cell.CreatePath(maze2.Cell(0, 0), Cell.Direction.South);
+			Cell.CreatePath(maze2.Cell(0, 1), Cell.Direction.South);
+
+			Assert.True(maze1.Equals(maze2));
+		}
+
+		[Test]
+		public void EqualsDifferentEntrance()
+		{
+			Maze maze1 = new Maze(3, 3);
+			Maze maze2 = new Maze(3, 3);
+			maze2.Entrance = maze1.Cell(1, 0);
+
+			Assert.False(maze1.Equals(maze2));
+		}
+
+		[Test]
+		public void EqualsDifferentExit()
+		{
+			Maze maze1 = new Maze(3, 3);
+			Maze maze2 = new Maze(3, 3);
+			maze2.Exit = maze1.Cell(1, 2);
+
+			Assert.False(maze1.Equals(maze2));
+		}
 	}
 }

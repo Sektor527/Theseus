@@ -110,5 +110,31 @@ namespace Theseus.Data
 				cell.WestOpen = false;
 			}
 		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj == null) return false;
+			if (!(obj is Maze)) return false;
+
+			Maze other = obj as Maze;
+
+			if (Size.X != other.Size.X || Size.Y != other.Size.Y) return false;
+
+			for (int x = 0; x < Size.X; ++x)
+			{
+				for (int y = 0; y < Size.Y; ++y)
+				{
+					if (Cell(x, y) == Entrance && other.Cell(x, y) != other.Entrance) return false;
+					if (Cell(x, y) == Exit && other.Cell(x, y) != other.Exit) return false;
+
+					if (Cell(x, y).NorthOpen != other.Cell(x, y).NorthOpen) return false;
+					if (Cell(x, y).EastOpen != other.Cell(x, y).EastOpen) return false;
+					if (Cell(x, y).SouthOpen != other.Cell(x, y).SouthOpen) return false;
+					if (Cell(x, y).WestOpen != other.Cell(x, y).WestOpen) return false;
+				}
+			}
+
+			return true;
+		}
 	}
 }
