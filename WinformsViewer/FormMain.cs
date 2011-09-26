@@ -133,6 +133,22 @@ namespace WinformsViewer
 				case Keys.Q:
 					Close();
 					return true;
+				case Keys.W:
+					_avatar.Move(Cell.Direction.North);
+					canvas.Refresh();
+					break;
+				case Keys.D:
+					_avatar.Move(Cell.Direction.East);
+					canvas.Refresh();
+					break;
+				case Keys.S:
+					_avatar.Move(Cell.Direction.South);
+					canvas.Refresh();
+					break;
+				case Keys.A:
+					_avatar.Move(Cell.Direction.West);
+					canvas.Refresh();
+					break;
 			}
 			return false;
 		}
