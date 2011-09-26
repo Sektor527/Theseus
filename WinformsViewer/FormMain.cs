@@ -113,5 +113,19 @@ namespace WinformsViewer
 		{
 			comboAlgorithm.SelectedIndex = 0;
 		}
+
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+		{
+			switch (keyData)
+			{
+				case Keys.Space:
+					btnCreate_Click(this, new EventArgs());
+					return true;
+				case Keys.Q:
+					Close();
+					return true;
+			}
+			return false;
+		}
 	}
 }

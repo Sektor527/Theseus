@@ -31,13 +31,16 @@
 			System.Windows.Forms.Label label3;
 			System.Windows.Forms.Label label2;
 			this.canvas = new System.Windows.Forms.Panel();
-			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.btnCreate = new System.Windows.Forms.Button();
 			this.groupSettings = new System.Windows.Forms.GroupBox();
 			this.comboAlgorithm = new System.Windows.Forms.ComboBox();
 			this.numHeight = new System.Windows.Forms.NumericUpDown();
 			this.numWidth = new System.Windows.Forms.NumericUpDown();
+			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+			this.label1 = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
 			this.panelAlgorithmSettings = new WinformsViewer.Generators.PanelGeneratorDepthFirst();
 			label3 = new System.Windows.Forms.Label();
 			label2 = new System.Windows.Forms.Label();
@@ -47,6 +50,8 @@
 			this.groupSettings.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numHeight)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numWidth)).BeginInit();
+			this.tableLayoutPanel1.SuspendLayout();
+			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// label3
@@ -73,23 +78,15 @@
 			this.canvas.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.canvas.Location = new System.Drawing.Point(0, 0);
 			this.canvas.Name = "canvas";
-			this.canvas.Size = new System.Drawing.Size(590, 398);
+			this.canvas.Size = new System.Drawing.Size(590, 530);
 			this.canvas.TabIndex = 0;
 			this.canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.canvas_Paint);
-			// 
-			// menuStrip1
-			// 
-			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(794, 24);
-			this.menuStrip1.TabIndex = 1;
-			this.menuStrip1.Text = "menuStrip1";
 			// 
 			// splitContainer1
 			// 
 			this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-			this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+			this.splitContainer1.Location = new System.Drawing.Point(3, 3);
 			this.splitContainer1.Name = "splitContainer1";
 			// 
 			// splitContainer1.Panel1
@@ -104,7 +101,7 @@
 			this.splitContainer1.Panel2.Controls.Add(this.numWidth);
 			this.splitContainer1.Panel2.Controls.Add(label3);
 			this.splitContainer1.Panel2.Controls.Add(label2);
-			this.splitContainer1.Size = new System.Drawing.Size(794, 398);
+			this.splitContainer1.Size = new System.Drawing.Size(794, 530);
 			this.splitContainer1.SplitterDistance = 590;
 			this.splitContainer1.TabIndex = 3;
 			// 
@@ -113,10 +110,10 @@
 			this.btnCreate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
 									| System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCreate.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnCreate.Location = new System.Drawing.Point(4, 363);
+			this.btnCreate.Location = new System.Drawing.Point(7, 501);
 			this.btnCreate.Name = "btnCreate";
-			this.btnCreate.Size = new System.Drawing.Size(193, 23);
-			this.btnCreate.TabIndex = 13;
+			this.btnCreate.Size = new System.Drawing.Size(184, 23);
+			this.btnCreate.TabIndex = 2;
 			this.btnCreate.Text = "Create";
 			this.btnCreate.UseVisualStyleBackColor = true;
 			this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
@@ -130,7 +127,7 @@
 			this.groupSettings.Controls.Add(this.comboAlgorithm);
 			this.groupSettings.Location = new System.Drawing.Point(7, 61);
 			this.groupSettings.Name = "groupSettings";
-			this.groupSettings.Size = new System.Drawing.Size(190, 296);
+			this.groupSettings.Size = new System.Drawing.Size(184, 434);
 			this.groupSettings.TabIndex = 12;
 			this.groupSettings.TabStop = false;
 			// 
@@ -145,7 +142,7 @@
             "None"});
 			this.comboAlgorithm.Location = new System.Drawing.Point(9, 0);
 			this.comboAlgorithm.Name = "comboAlgorithm";
-			this.comboAlgorithm.Size = new System.Drawing.Size(173, 21);
+			this.comboAlgorithm.Size = new System.Drawing.Size(167, 21);
 			this.comboAlgorithm.TabIndex = 0;
 			this.comboAlgorithm.SelectedIndexChanged += new System.EventHandler(this.comboAlgorithm_SelectedIndexChanged);
 			// 
@@ -159,7 +156,7 @@
             0});
 			this.numHeight.Name = "numHeight";
 			this.numHeight.Size = new System.Drawing.Size(88, 20);
-			this.numHeight.TabIndex = 11;
+			this.numHeight.TabIndex = 1;
 			this.numHeight.Value = new decimal(new int[] {
             60,
             0,
@@ -176,12 +173,55 @@
             0});
 			this.numWidth.Name = "numWidth";
 			this.numWidth.Size = new System.Drawing.Size(88, 20);
-			this.numWidth.TabIndex = 10;
+			this.numWidth.TabIndex = 0;
 			this.numWidth.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
+			// 
+			// tableLayoutPanel1
+			// 
+			this.tableLayoutPanel1.ColumnCount = 1;
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel1.Controls.Add(this.splitContainer1, 0, 0);
+			this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 1);
+			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+			this.tableLayoutPanel1.RowCount = 2;
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 556);
+			this.tableLayoutPanel1.TabIndex = 4;
+			// 
+			// flowLayoutPanel1
+			// 
+			this.flowLayoutPanel1.Controls.Add(this.label1);
+			this.flowLayoutPanel1.Controls.Add(this.label4);
+			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 539);
+			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(794, 14);
+			this.flowLayoutPanel1.TabIndex = 4;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(3, 0);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(152, 13);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "<SPACE> Generate new maze";
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(161, 0);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(49, 13);
+			this.label4.TabIndex = 1;
+			this.label4.Text = "<Q> Quit";
 			// 
 			// panelAlgorithmSettings
 			// 
@@ -190,17 +230,15 @@
 									| System.Windows.Forms.AnchorStyles.Right)));
 			this.panelAlgorithmSettings.Location = new System.Drawing.Point(6, 25);
 			this.panelAlgorithmSettings.Name = "panelAlgorithmSettings";
-			this.panelAlgorithmSettings.Size = new System.Drawing.Size(178, 265);
+			this.panelAlgorithmSettings.Size = new System.Drawing.Size(172, 379);
 			this.panelAlgorithmSettings.TabIndex = 1;
 			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(794, 422);
-			this.Controls.Add(this.splitContainer1);
-			this.Controls.Add(this.menuStrip1);
-			this.MainMenuStrip = this.menuStrip1;
+			this.ClientSize = new System.Drawing.Size(800, 556);
+			this.Controls.Add(this.tableLayoutPanel1);
 			this.Name = "FormMain";
 			this.Text = "Theseus";
 			this.Load += new System.EventHandler(this.FormMain_Load);
@@ -211,15 +249,16 @@
 			this.groupSettings.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.numHeight)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numWidth)).EndInit();
+			this.tableLayoutPanel1.ResumeLayout(false);
+			this.flowLayoutPanel1.ResumeLayout(false);
+			this.flowLayoutPanel1.PerformLayout();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
 		#endregion
 
 		private System.Windows.Forms.Panel canvas;
-		private System.Windows.Forms.MenuStrip menuStrip1;
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private System.Windows.Forms.GroupBox groupSettings;
 		private WinformsViewer.Generators.PanelGeneratorDepthFirst panelAlgorithmSettings;
@@ -227,6 +266,10 @@
 		private System.Windows.Forms.NumericUpDown numHeight;
 		private System.Windows.Forms.NumericUpDown numWidth;
 		public System.Windows.Forms.Button btnCreate;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label4;
 
 	}
 }
