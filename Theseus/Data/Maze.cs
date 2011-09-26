@@ -25,16 +25,14 @@ namespace Theseus.Data
 		public int X;
 		public int Y;
 
-		public override int GetHashCode()
-		{
-			return 3 * X + 5 * Y;
-		}
 		public override bool Equals(object obj)
 		{
 			if (obj == null) return false;
 			if (obj.GetType() != typeof(Location)) return false;
 
-			return GetHashCode() == obj.GetHashCode();
+			Location other = (Location)obj;
+
+			return X == other.X && Y == other.Y;
 		}
 	}
 
