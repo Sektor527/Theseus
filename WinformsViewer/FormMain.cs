@@ -8,8 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using Theseus.Data;
 using Theseus.Generators;
-using WinformsViewer.Generators;
 using Theseus.Plotter;
+using WinformsViewer.Generators;
+using WinformsViewer.UserControl;
 using Size = System.Drawing.Size;
 
 namespace WinformsViewer
@@ -17,6 +18,7 @@ namespace WinformsViewer
 	public partial class FormMain : Form
 	{
 		private Maze _maze;
+		private Avatar _avatar;
 
 		private const int Offset = 10;
 		private const int Thickness = 3;
@@ -59,6 +61,11 @@ namespace WinformsViewer
 								break;
 						}
 
+						Location avatarLocation = Plotter.TranslateLocation(_maze.Location(_avatar.Cell));
+						if (avatarLocation.Equals(new Location(x, y)))
+							color = Color.Blue;
+
+
 						// Position
 						int posX = Offset + (x * Thickness);
 						int posY = Offset + (y * Thickness);
@@ -84,6 +91,8 @@ namespace WinformsViewer
 					GeneratorDepthFirst.Generate(_maze, conf);
 					break;
 			}
+
+			_avatar = new Avatar(_maze.Entrance);
 
 			canvas.Refresh();
 		}
