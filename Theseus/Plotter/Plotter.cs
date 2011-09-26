@@ -107,5 +107,14 @@ namespace Theseus.Plotter
 
 			return plot;
 		}
+		public static Location TranslateLocation(Location mazeLocation)
+		{
+			Location plotLocation = new Location();
+
+			plotLocation.X = mazeLocation.X * 2 + 1;
+			plotLocation.Y = mazeLocation.Y * 2 + 1;
+
+			return plotLocation;
+		}
 	}
 }
