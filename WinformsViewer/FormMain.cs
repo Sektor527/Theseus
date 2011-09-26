@@ -10,6 +10,7 @@ using Theseus.Data;
 using Theseus.Generators;
 using WinformsViewer.Generators;
 using Theseus.Plotter;
+using Size = System.Drawing.Size;
 
 namespace WinformsViewer
 {
@@ -23,10 +24,6 @@ namespace WinformsViewer
 		public FormMain()
 		{
 			InitializeComponent();
-		}
-
-		private void FormMain_Load(object sender, EventArgs e)
-		{
 		}
 
 		private void canvas_Paint(object sender, PaintEventArgs e)
@@ -73,15 +70,48 @@ namespace WinformsViewer
 			}
 		}
 
-		private void depthFirstToolStripMenuItem_Click(object sender, EventArgs e)
+		private void btnCreate_Click(object sender, EventArgs e)
 		{
-			FormGenerate form = new FormGenerate();
-			DialogResult res = form.ShowDialog();
-			if (res == DialogResult.Cancel) return;
+		int SizeX = (int)numWidth.Value;
+		int SizeY = (int)numHeight.Value;
 
-			_maze = form.Maze;
+		_maze = new Maze(SizeX, SizeY);
+
+			switch (comboAlgorithm.SelectedIndex)
+			{
+				case 0:
+					ConfiguratorDepthFirst conf = new ConfiguratorDepthFirst { RandomTraverse = ((PanelGeneratorDepthFirst)panelAlgorithmSettings).Random };
+					GeneratorDepthFirst.Generate(_maze, conf);
+					break;
+			}
 
 			canvas.Refresh();
+		}
+
+		private void comboAlgorithm_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (panelAlgorithmSettings != null)
+			{
+				groupSettings.Controls.Remove(panelAlgorithmSettings);
+				panelAlgorithmSettings.Dispose();
+				panelAlgorithmSettings = null;
+			}
+
+			switch (comboAlgorithm.SelectedIndex)
+			{
+				case 0: // Depth First
+					panelAlgorithmSettings = new PanelGeneratorDepthFirst();
+					panelAlgorithmSettings.Location = new Point(6, 25);
+					panelAlgorithmSettings.Name = "panelAlgorithmSettings";
+					panelAlgorithmSettings.Size = new Size(202, 181);
+					groupSettings.Controls.Add(panelAlgorithmSettings);
+					break;
+			}
+		}
+
+		private void FormMain_Load(object sender, EventArgs e)
+		{
+			comboAlgorithm.SelectedIndex = 0;
 		}
 	}
 }
