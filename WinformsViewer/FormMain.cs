@@ -19,6 +19,7 @@ namespace WinformsViewer
 	{
 		private Maze _maze;
 		private Avatar _avatar;
+		private Plot _plot;
 
 		private const int Offset = 10;
 		private const int Thickness = 3;
@@ -32,17 +33,15 @@ namespace WinformsViewer
 		{
 			if (_maze == null) return;
 
-			Plot plot = Plotter.Plot(_maze);
-
 			using (Graphics graphics = e.Graphics)
 			{
-				for (int y = 0; y < plot.Size.Y; ++y)
+				for (int y = 0; y < _plot.Size.Y; ++y)
 				{
-					for (int x = 0; x < plot.Size.X; ++x)
+					for (int x = 0; x < _plot.Size.X; ++x)
 					{
 						// Color
 						Color color;
-						switch (plot.Image[x][y])
+						switch (_plot.Image[x][y])
 						{
 							case Pixels.Space:
 								color = Color.White;
@@ -61,7 +60,7 @@ namespace WinformsViewer
 								break;
 						}
 
-						Location avatarLocation = Plotter.TranslateLocation(_maze.Location(_avatar.Cell));
+						Location avatarLocation = _avatar.Location;
 						if (avatarLocation.Equals(new Location(x, y)))
 							color = Color.Blue;
 
@@ -79,10 +78,10 @@ namespace WinformsViewer
 
 		private void btnCreate_Click(object sender, EventArgs e)
 		{
-		int SizeX = (int)numWidth.Value;
-		int SizeY = (int)numHeight.Value;
+			int SizeX = (int)numWidth.Value;
+			int SizeY = (int)numHeight.Value;
 
-		_maze = new Maze(SizeX, SizeY);
+			_maze = new Maze(SizeX, SizeY);
 
 			switch (comboAlgorithm.SelectedIndex)
 			{
@@ -92,7 +91,10 @@ namespace WinformsViewer
 					break;
 			}
 
-			_avatar = new Avatar(_maze.Entrance);
+			_plot = Plotter.Plot(_maze);
+
+			Location entrance = Plotter.TranslateLocation(_maze.Location(_maze.Entrance));
+			_avatar = new Avatar(new Location(entrance.X, entrance.Y - 1));
 
 			canvas.Refresh();
 		}
@@ -134,20 +136,32 @@ namespace WinformsViewer
 					Close();
 					return true;
 				case Keys.W:
-					_avatar.Move(Cell.Direction.North);
-					canvas.Refresh();
+					if (_avatar.Location.Y > 0 && _plot.Image[_avatar.Location.X][_avatar.Location.Y - 1] == Pixels.Space)
+					{
+						_avatar.Location = new Location(_avatar.Location.X, _avatar.Location.Y-1);
+						canvas.Refresh();
+					}
 					break;
 				case Keys.D:
-					_avatar.Move(Cell.Direction.East);
-					canvas.Refresh();
+					if (_avatar.Location.X < _plot.Size.X && _plot.Image[_avatar.Location.X + 1][_avatar.Location.Y] == Pixels.Space)
+					{
+						_avatar.Location = new Location(_avatar.Location.X+1, _avatar.Location.Y);
+						canvas.Refresh();
+					}
 					break;
 				case Keys.S:
-					_avatar.Move(Cell.Direction.South);
-					canvas.Refresh();
+					if (_avatar.Location.Y < _plot.Size.Y && _plot.Image[_avatar.Location.X][_avatar.Location.Y + 1] == Pixels.Space)
+					{
+						_avatar.Location = new Location(_avatar.Location.X, _avatar.Location.Y+1);
+						canvas.Refresh();
+					}
 					break;
 				case Keys.A:
-					_avatar.Move(Cell.Direction.West);
-					canvas.Refresh();
+					if (_avatar.Location.X > 0 && _plot.Image[_avatar.Location.X - 1][_avatar.Location.Y] == Pixels.Space)
+					{
+						_avatar.Location = new Location(_avatar.Location.X-1, _avatar.Location.Y);
+						canvas.Refresh();
+					}
 					break;
 			}
 			return false;
