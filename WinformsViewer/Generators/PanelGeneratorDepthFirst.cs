@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace WinformsViewer.Generators
 {
-	public partial class PanelGeneratorDepthFirst : UserControl
+	public partial class PanelGeneratorDepthFirst : System.Windows.Forms.UserControl
 	{
 		public PanelGeneratorDepthFirst()
 		{
