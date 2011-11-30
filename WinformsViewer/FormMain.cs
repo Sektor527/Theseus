@@ -21,6 +21,8 @@ namespace WinformsViewer
 		private Avatar _avatar;
 		private Plot _plot;
 
+		private Graphics _graphics;
+
 		private const int Offset = 10;
 		private const int Thickness = 3;
 
@@ -31,49 +33,52 @@ namespace WinformsViewer
 
 		private void canvas_Paint(object sender, PaintEventArgs e)
 		{
+			_graphics = canvas.CreateGraphics();
+
 			if (_maze == null) return;
 
-			using (Graphics graphics = e.Graphics)
+			for (int y = 0; y < _plot.Size.Y; ++y)
 			{
-				for (int y = 0; y < _plot.Size.Y; ++y)
+				for (int x = 0; x < _plot.Size.X; ++x)
 				{
-					for (int x = 0; x < _plot.Size.X; ++x)
+					// Color
+					Color color;
+					switch (_plot.Image[x][y])
 					{
-						// Color
-						Color color;
-						switch (_plot.Image[x][y])
-						{
-							case Pixels.Space:
-								color = Color.White;
-								break;
-							case Pixels.Wall:
-								color = Color.Black;
-								break;
-							case Pixels.Entrance:
-								color = Color.YellowGreen;
-								break;
-							case Pixels.Exit:
-								color = Color.YellowGreen;
-								break;
-							default:
-								color = Color.White;
-								break;
-						}
-
-						Location avatarLocation = _avatar.Location;
-						if (avatarLocation.Equals(new Location(x, y)))
-							color = Color.Blue;
-
-
-						// Position
-						int posX = Offset + (x * Thickness);
-						int posY = Offset + (y * Thickness);
-
-						using (SolidBrush brush = new SolidBrush(color))
-							graphics.FillRectangle(brush, posX, posY, Thickness, Thickness);
+						case Pixels.Space:
+							color = Color.White;
+							break;
+						case Pixels.Wall:
+							color = Color.Black;
+							break;
+						case Pixels.Entrance:
+							color = Color.YellowGreen;
+							break;
+						case Pixels.Exit:
+							color = Color.YellowGreen;
+							break;
+						default:
+							color = Color.White;
+							break;
 					}
+
+					Location avatarLocation = _avatar.Location;
+					if (avatarLocation.Equals(new Location(x, y)))
+						color = Color.Blue;
+
+					DrawBlock(x, y, color);
 				}
 			}
+		}
+
+		private void DrawBlock(int x, int y, Color color)
+		{
+			// Position
+			int posX = Offset + (x * Thickness);
+			int posY = Offset + (y * Thickness);
+
+			using (SolidBrush brush = new SolidBrush(color))
+				_graphics.FillRectangle(brush, posX, posY, Thickness, Thickness);
 		}
 
 		private void btnCreate_Click(object sender, EventArgs e)
@@ -127,65 +132,54 @@ namespace WinformsViewer
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
 		{
-			using (Graphics graphics = canvas.CreateGraphics())
+			switch (keyData)
 			{
-				switch (keyData)
-				{
-					case Keys.Space:
-						btnCreate_Click(this, new EventArgs());
-						return true;
-					case Keys.Q:
-						Close();
-						return true;
-					case Keys.W:
-						if (_avatar.Location.Y > 0 && _plot.Image[_avatar.Location.X][_avatar.Location.Y - 1] == Pixels.Space)
-						{
-							using (SolidBrush brush = new SolidBrush(Color.White))
-								graphics.FillRectangle(brush, Offset + (_avatar.Location.X * Thickness), Offset + (_avatar.Location.Y * Thickness), Thickness, Thickness);
+				case Keys.Space:
+					btnCreate_Click(this, new EventArgs());
+					return true;
+				case Keys.Q:
+					Close();
+					return true;
+				case Keys.W:
+					if (_avatar.Location.Y > 0 && _plot.Image[_avatar.Location.X][_avatar.Location.Y - 1] == Pixels.Space)
+					{
+						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.White);
 
-							_avatar.Location = new Location(_avatar.Location.X, _avatar.Location.Y - 1);
+						_avatar.Location = new Location(_avatar.Location.X, _avatar.Location.Y - 1);
 
-							using (SolidBrush brush = new SolidBrush(Color.Blue))
-								graphics.FillRectangle(brush, Offset + (_avatar.Location.X * Thickness), Offset + (_avatar.Location.Y * Thickness), Thickness, Thickness);
-						}
-						break;
-					case Keys.D:
-						if (_avatar.Location.X < _plot.Size.X && _plot.Image[_avatar.Location.X + 1][_avatar.Location.Y] == Pixels.Space)
-						{
-							using (SolidBrush brush = new SolidBrush(Color.White))
-								graphics.FillRectangle(brush, Offset + (_avatar.Location.X * Thickness), Offset + (_avatar.Location.Y * Thickness), Thickness, Thickness);
+						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.Blue);
+					}
+					break;
+				case Keys.D:
+					if (_avatar.Location.X < _plot.Size.X && _plot.Image[_avatar.Location.X + 1][_avatar.Location.Y] == Pixels.Space)
+					{
+						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.White);
 
-							_avatar.Location = new Location(_avatar.Location.X + 1, _avatar.Location.Y);
+						_avatar.Location = new Location(_avatar.Location.X + 1, _avatar.Location.Y);
 
-							using (SolidBrush brush = new SolidBrush(Color.Blue))
-								graphics.FillRectangle(brush, Offset + (_avatar.Location.X * Thickness), Offset + (_avatar.Location.Y * Thickness), Thickness, Thickness);
-						}
-						break;
-					case Keys.S:
-						if (_avatar.Location.Y < _plot.Size.Y && _plot.Image[_avatar.Location.X][_avatar.Location.Y + 1] == Pixels.Space)
-						{
-							using (SolidBrush brush = new SolidBrush(Color.White))
-								graphics.FillRectangle(brush, Offset + (_avatar.Location.X * Thickness), Offset + (_avatar.Location.Y * Thickness), Thickness, Thickness);
+						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.Blue);
+					}
+					break;
+				case Keys.S:
+					if (_avatar.Location.Y < _plot.Size.Y && _plot.Image[_avatar.Location.X][_avatar.Location.Y + 1] == Pixels.Space)
+					{
+						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.White);
 
-							_avatar.Location = new Location(_avatar.Location.X, _avatar.Location.Y + 1);
+						_avatar.Location = new Location(_avatar.Location.X, _avatar.Location.Y + 1);
 
-							using (SolidBrush brush = new SolidBrush(Color.Blue))
-								graphics.FillRectangle(brush, Offset + (_avatar.Location.X * Thickness), Offset + (_avatar.Location.Y * Thickness), Thickness, Thickness);
-						}
-						break;
-					case Keys.A:
-						if (_avatar.Location.X > 0 && _plot.Image[_avatar.Location.X - 1][_avatar.Location.Y] == Pixels.Space)
-						{
-							using (SolidBrush brush = new SolidBrush(Color.White))
-								graphics.FillRectangle(brush, Offset + (_avatar.Location.X * Thickness), Offset + (_avatar.Location.Y * Thickness), Thickness, Thickness);
+						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.Blue);
+					}
+					break;
+				case Keys.A:
+					if (_avatar.Location.X > 0 && _plot.Image[_avatar.Location.X - 1][_avatar.Location.Y] == Pixels.Space)
+					{
+						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.White);
 
-							_avatar.Location = new Location(_avatar.Location.X - 1, _avatar.Location.Y);
+						_avatar.Location = new Location(_avatar.Location.X - 1, _avatar.Location.Y);
 
-							using (SolidBrush brush = new SolidBrush(Color.Blue))
-								graphics.FillRectangle(brush, Offset + (_avatar.Location.X * Thickness), Offset + (_avatar.Location.Y * Thickness), Thickness, Thickness);
-						}
-						break;
-				}
+						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.Blue);
+					}
+					break;
 			}
 			return false;
 		}
