@@ -40,6 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="$(ProjectDir)"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="0"
@@ -102,6 +103,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="$(ProjectDir)"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
@@ -156,6 +158,25 @@
 			</File>
 			<File
 				RelativePath=".\data\Maze.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Generators"
+			>
+			<File
+				RelativePath=".\Generators\GeneratorDepthFirst.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Generators\GeneratorDepthFirst.h"
 				>
 			</File>
 		</Filter>

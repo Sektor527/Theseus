@@ -176,6 +176,14 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Generators"
+			>
+			<File
+				RelativePath=".\Generators\GeneratorDepthFirstTest.cpp"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
