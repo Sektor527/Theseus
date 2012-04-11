@@ -150,6 +150,14 @@
 				RelativePath=".\data\Cell.h"
 				>
 			</File>
+			<File
+				RelativePath=".\data\Maze.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\data\Maze.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

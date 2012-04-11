@@ -171,6 +171,10 @@
 				RelativePath=".\Data\CellTest.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\Data\MazeTest.cpp"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
