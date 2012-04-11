@@ -6,5 +6,8 @@
 bin/
 obj/
 
+*/Debug/*
+*/Release/*
+
 TestResult.xml
 *.VisualState.xml
