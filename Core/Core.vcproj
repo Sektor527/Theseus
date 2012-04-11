@@ -139,6 +139,18 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="Data"
+			>
+			<File
+				RelativePath=".\data\Cell.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\data\Cell.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
