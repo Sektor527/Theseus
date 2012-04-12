@@ -3,12 +3,15 @@
 #include "Data/Cell.h"
 #include <stack>
 #include <algorithm>
+#include <time.h>
 
 void GeneratorDepthFirst::generate(Maze* maze, const ConfiguratorDepthFirst& configurator)
 {
 	GeneratorDepthFirst generator;
 	generator._configurator = configurator;
 	generator._maze = maze;
+
+	srand((unsigned int)time(NULL));
 
 	generator.visit(maze->getExit());
 }
