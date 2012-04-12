@@ -33,6 +33,17 @@ Maze::Maze(size_t width, size_t height)
 	_exit = getCell(getSizeWidth() - 1, getSizeHeight() - 1);
 }
 
+Maze::~Maze()
+{
+	for (std::vector<Cell*>::iterator it = _cells.begin(); it != _cells.end(); ++it)
+		delete *it;
+
+	_cells.clear();
+
+	_entrance = NULL;
+	_exit = NULL;
+}
+
 size_t Maze::getSizeWidth() const
 {
 	return _width;

@@ -14,6 +14,8 @@ TEST(CellDefaultValues, Neighbors)
 	ASSERT_FALSE(cell->isOpenEast());
 	ASSERT_FALSE(cell->isOpenSouth());
 	ASSERT_FALSE(cell->isOpenWest());
+
+	delete cell;
 }
 
 TEST(CellNeighbors, CellSettersAndGetters)
@@ -39,6 +41,12 @@ TEST(CellNeighbors, CellSettersAndGetters)
 	ASSERT_EQ(east, cell->getNeighbors()[1]);
 	ASSERT_EQ(south, cell->getNeighbors()[2]);
 	ASSERT_EQ(west, cell->getNeighbors()[3]);
+
+	delete cell;
+	delete north;
+	delete east;
+	delete south;
+	delete west;
 }
 
 TEST(CellNeighbors, OpenSettersAndGetters)
@@ -64,6 +72,8 @@ TEST(CellNeighbors, OpenSettersAndGetters)
 	ASSERT_FALSE(cell->isOpenEast());
 	ASSERT_FALSE(cell->isOpenSouth());
 	ASSERT_FALSE(cell->isOpenWest());
+
+	delete cell;
 }
 
 TEST(CreatePathCellToCell,North)
@@ -78,6 +88,9 @@ TEST(CreatePathCellToCell,North)
 
 	ASSERT_TRUE(start->isOpenNorth());
 	ASSERT_TRUE(north->isOpenSouth());
+
+	delete start;
+	delete north;
 }
 
 TEST(CreatePathCellToCell,East)
@@ -92,6 +105,9 @@ TEST(CreatePathCellToCell,East)
 
 	ASSERT_TRUE(start->isOpenEast());
 	ASSERT_TRUE(east->isOpenWest());
+
+	delete start;
+	delete east;
 }
 
 TEST(CreatePathCellToCell,South)
@@ -106,6 +122,9 @@ TEST(CreatePathCellToCell,South)
 
 	ASSERT_TRUE(start->isOpenSouth());
 	ASSERT_TRUE(south->isOpenNorth());
+
+	delete start;
+	delete south;
 }
 
 TEST(CreatePathCellToCell,West)
@@ -120,6 +139,9 @@ TEST(CreatePathCellToCell,West)
 
 	ASSERT_TRUE(start->isOpenWest());
 	ASSERT_TRUE(west->isOpenEast());
+
+	delete start;
+	delete west;
 }
 
 TEST(CreatePathCellToCell, NonNeighboringCells)
@@ -138,6 +160,9 @@ TEST(CreatePathCellToCell, NonNeighboringCells)
 	ASSERT_FALSE(end->isOpenEast());
 	ASSERT_FALSE(end->isOpenSouth());
 	ASSERT_FALSE(end->isOpenWest());
+
+	delete start;
+	delete end;
 }
 
 TEST(CreatePathCellToCell, NullParameters)
@@ -157,6 +182,8 @@ TEST(CreatePathCellToCell, NullParameters)
 	ASSERT_FALSE(cell->isOpenEast());
 	ASSERT_FALSE(cell->isOpenSouth());
 	ASSERT_FALSE(cell->isOpenWest());
+
+	delete cell;
 }
 
 TEST(CreatePathCellToDirection, North)
@@ -171,6 +198,9 @@ TEST(CreatePathCellToDirection, North)
 
 	ASSERT_TRUE(start->isOpenNorth());
 	ASSERT_TRUE(north->isOpenSouth());
+
+	delete start;
+	delete north;
 }
 
 TEST(CreatePathCellToDirection,East)
@@ -185,6 +215,9 @@ TEST(CreatePathCellToDirection,East)
 
 	ASSERT_TRUE(start->isOpenEast());
 	ASSERT_TRUE(east->isOpenWest());
+
+	delete start;
+	delete east;
 }
 
 TEST(CreatePathCellToDirection,South)
@@ -199,6 +232,9 @@ TEST(CreatePathCellToDirection,South)
 
 	ASSERT_TRUE(start->isOpenSouth());
 	ASSERT_TRUE(south->isOpenNorth());
+
+	delete start;
+	delete south;
 }
 
 TEST(CreatePathCellToDirection,West)
@@ -213,6 +249,9 @@ TEST(CreatePathCellToDirection,West)
 
 	ASSERT_TRUE(start->isOpenWest());
 	ASSERT_TRUE(west->isOpenEast());
+
+	delete start;
+	delete west;
 }
 
 TEST(CreatePathCellToDirection, NoNeighborCell)
@@ -228,6 +267,8 @@ TEST(CreatePathCellToDirection, NoNeighborCell)
 	ASSERT_FALSE(cell->isOpenEast());
 	ASSERT_FALSE(cell->isOpenSouth());
 	ASSERT_FALSE(cell->isOpenWest());
+
+	delete cell;
 }
 
 TEST(CreatePathCellToDirection, NullParameters)
@@ -243,4 +284,6 @@ TEST(CreatePathCellToDirection, NullParameters)
 	ASSERT_FALSE(cell->isOpenEast());
 	ASSERT_FALSE(cell->isOpenSouth());
 	ASSERT_FALSE(cell->isOpenWest());
+
+	delete cell;
 }

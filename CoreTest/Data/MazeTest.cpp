@@ -8,6 +8,8 @@ TEST(MazeConstruction, CorrectSize)
 	
 	ASSERT_EQ(4, maze->getSizeWidth());
 	ASSERT_EQ(6, maze->getSizeHeight());
+
+	delete maze;
 }
 
 TEST(MazeConstruction, ZeroWidth)
@@ -16,6 +18,8 @@ TEST(MazeConstruction, ZeroWidth)
 
 	ASSERT_EQ(1, maze->getSizeWidth());
 	ASSERT_EQ(6, maze->getSizeHeight());
+
+	delete maze;
 }
 
 TEST(MazeConstruction, ZeroHeight)
@@ -24,6 +28,8 @@ TEST(MazeConstruction, ZeroHeight)
 
 	ASSERT_EQ(4, maze->getSizeWidth());
 	ASSERT_EQ(1, maze->getSizeHeight());
+
+	delete maze;
 }
 
 TEST(MazeConstruction, AllCells)
@@ -43,6 +49,8 @@ TEST(MazeConstruction, AllCells)
 	ASSERT_EQ(NULL, maze->getCell(500, 3));
 	ASSERT_EQ(NULL, maze->getCell(2, -2));
 	ASSERT_EQ(NULL, maze->getCell(2, 500));
+
+	delete maze;
 }
 
 TEST(MazeConstruction, InitialNeighbors)
@@ -79,6 +87,8 @@ TEST(MazeConstruction, InitialNeighbors)
 				ASSERT_EQ(maze->getCell(w+1, h), cell->getEast());
 		}
 	}
+
+	delete maze;
 }
 
 TEST(MazeConstruction, InitialWalls)
@@ -96,6 +106,8 @@ TEST(MazeConstruction, InitialWalls)
 			ASSERT_FALSE(cell->isOpenWest());
 		}
 	}
+
+	delete maze;
 }
 
 TEST(MazeConstruction, EntranceAndExit)
@@ -104,4 +116,6 @@ TEST(MazeConstruction, EntranceAndExit)
 
 	ASSERT_EQ(maze->getEntrance(), maze->getCell(0,0));
 	ASSERT_EQ(maze->getExit(), maze->getCell(maze->getSizeWidth() - 1, maze->getSizeHeight() - 1));
+
+	delete maze;
 }

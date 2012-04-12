@@ -10,6 +10,9 @@ TEST(Plotter,CorrectSizes)
 
 	ASSERT_EQ(9, plot->getSizeWidth());
 	ASSERT_EQ(13, plot->getSizeHeight());
+
+	delete maze;
+	delete plot;
 }
 
 TEST(Plotter,ContainsBasicElements)
@@ -55,6 +58,9 @@ TEST(Plotter,ContainsBasicElements)
 	ASSERT_EQ(foundExit, 1);
 
 	ASSERT_EQ(foundOther, 0);
+
+	delete maze;
+	delete plot;
 }
 
 TEST(Plotter,MazeBorders)
@@ -87,6 +93,9 @@ TEST(Plotter,MazeBorders)
 	// Right border
 	for (size_t y = 0; y < plot->getSizeHeight(); ++y)
 		ASSERT_EQ(Plotter::Wall, plot->getPixel(plot->getSizeWidth()-1, y));
+
+	delete maze;
+	delete plot;
 }
 
 TEST(Plotter,EntranceAndExitPlacement)
@@ -96,4 +105,7 @@ TEST(Plotter,EntranceAndExitPlacement)
 
 	ASSERT_EQ(Plotter::Entrance, plot->getPixel(1, 0));
 	ASSERT_EQ(Plotter::Exit, plot->getPixel(plot->getSizeWidth()-2,plot->getSizeHeight()-1));
+
+	delete maze;
+	delete plot;
 }

@@ -44,6 +44,12 @@ TEST(GeneratorDepthFirst,ShuffleList)
 							 cell_3 == list[2] && 
 							 cell_4 == list[3] && 
 	             cell_5 == list[4]);
+
+	delete cell_1;
+	delete cell_2;
+	delete cell_3;
+	delete cell_4;
+	delete cell_5;
 }
 
 TEST(GeneratorDepthFirst,Generate)
@@ -66,4 +72,6 @@ TEST(GeneratorDepthFirst,Generate)
 	ASSERT_TRUE(maze->getCell(0, 2)->isOpenEast() || maze->getCell(0, 2)->isOpenNorth());
 	ASSERT_TRUE(maze->getCell(1, 2)->isOpenWest() || maze->getCell(1, 2)->isOpenEast() || maze->getCell(1, 2)->isOpenNorth());
 	ASSERT_TRUE(maze->getCell(2, 2)->isOpenWest() || maze->getCell(2, 2)->isOpenNorth());
+
+	delete maze;
 }

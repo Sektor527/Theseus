@@ -13,8 +13,10 @@ class GeneratorDepthFirst
 {
 public:
 	static void generate(Maze* maze, const ConfiguratorDepthFirst& configurator);
+	~GeneratorDepthFirst() {};
 
 private:
+	GeneratorDepthFirst() {};
 	void visit(Cell* cell);
 
 private:

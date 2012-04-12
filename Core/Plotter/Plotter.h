@@ -16,10 +16,14 @@ public:
 	};
 
 	static Plotter* plot(Maze* maze);
+	~Plotter();
 
 	size_t getSizeWidth() const;
 	size_t getSizeHeight() const;
 	char getPixel(size_t x, size_t y) const;
+
+private:
+	Plotter() {};
 
 private:
 	size_t _width, _height;

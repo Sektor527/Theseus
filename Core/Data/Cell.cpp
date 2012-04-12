@@ -8,6 +8,14 @@ Cell::Cell()
 
 }
 
+Cell::~Cell()
+{
+	_north = NULL;
+	_east = NULL;
+	_south = NULL;
+	_west = NULL;
+}
+
 void Cell::setNorth(Cell* cell) { _north = cell; }
 void Cell::setEast(Cell* cell) { _east = cell; }
 void Cell::setSouth(Cell* cell) { _south = cell; }

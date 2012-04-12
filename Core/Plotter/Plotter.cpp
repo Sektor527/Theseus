@@ -96,6 +96,16 @@ Plotter* Plotter::plot(Maze* maze)
 	return result;
 }
 
+Plotter::~Plotter()
+{
+	for (size_t y = 0; y < _height; ++y)
+	{
+		delete[] _plot[y];
+	}
+
+	delete[] _plot;
+}
+
 size_t Plotter::getSizeWidth() const
 {
 	return _width;

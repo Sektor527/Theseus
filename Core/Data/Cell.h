@@ -5,6 +5,7 @@ class Cell
 {
 public:
 	Cell();
+	~Cell();
 
 	// Directions
 	enum Direction
