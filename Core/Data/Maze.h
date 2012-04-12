@@ -18,6 +18,9 @@ public:
 	Cell* getEntrance() const;
 	Cell* getExit() const;
 
+	// Reset all paths to closed
+	void reset();
+
 private:
 	size_t _width, _height;
 	std::vector<Cell*> _cells;

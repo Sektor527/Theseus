@@ -119,3 +119,38 @@ TEST(MazeConstruction, EntranceAndExit)
 
 	delete maze;
 }
+
+TEST(MazeReset, CloseAllPaths)
+{
+	Maze* maze = new Maze(4, 6);
+
+	// Open some paths
+	for (size_t h = 0; h < maze->getSizeHeight(); ++h)
+	{
+		for (size_t w = 0; w < maze->getSizeWidth(); ++w)
+		{
+			Cell* cell = maze->getCell(w, h);
+
+			cell->setOpenNorth(rand() % 2);
+			cell->setOpenEast(rand() % 2);
+			cell->setOpenSouth(rand() % 2);
+			cell->setOpenWest(rand() % 2);
+		}
+	}
+
+	maze->reset();
+
+	for (size_t h = 0; h < maze->getSizeHeight(); ++h)
+	{
+		for (size_t w = 0; w < maze->getSizeWidth(); ++w)
+		{
+			Cell* cell = maze->getCell(w, h);
+			ASSERT_FALSE(cell->isOpenNorth());
+			ASSERT_FALSE(cell->isOpenEast());
+			ASSERT_FALSE(cell->isOpenSouth());
+			ASSERT_FALSE(cell->isOpenWest());
+		}
+	}
+
+	delete maze;
+}

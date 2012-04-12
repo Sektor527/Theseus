@@ -71,3 +71,15 @@ Cell* Maze::getExit() const
 {
 	return _exit;
 }
+
+void Maze::reset()
+{
+	for (std::vector<Cell*>::iterator it = _cells.begin(); it != _cells.end(); ++it)
+	{
+		Cell* cell = *it;
+		cell->setOpenNorth(false);
+		cell->setOpenEast(false);
+		cell->setOpenSouth(false);
+		cell->setOpenWest(false);
+	}
+}
