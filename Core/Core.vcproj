@@ -180,6 +180,18 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Plotter"
+			>
+			<File
+				RelativePath=".\Plotter\Plotter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Plotter\Plotter.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

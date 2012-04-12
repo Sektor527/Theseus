@@ -184,6 +184,14 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Plotter"
+			>
+			<File
+				RelativePath=".\Plotter\PlotterTest.cpp"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
