@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include "Cell.h"
 
+namespace Theseus { namespace Core {
+
 Maze::Maze(size_t width, size_t height)
 : _width(width), _height(height)
 {
@@ -83,3 +85,5 @@ void Maze::reset()
 		cell->setOpenWest(false);
 	}
 }
+
+}}

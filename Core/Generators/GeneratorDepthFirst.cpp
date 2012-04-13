@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <time.h>
 
+namespace Theseus { namespace Core {
+
 void GeneratorDepthFirst::generate(Maze* maze, const ConfiguratorDepthFirst& configurator)
 {
 	GeneratorDepthFirst generator;
@@ -63,3 +65,5 @@ void shuffle(std::vector<Cell*>& cells)
 		cells[n] = cell;
 	}
 }
+
+}}

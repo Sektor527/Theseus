@@ -2,6 +2,8 @@
 #include "data/maze.h"
 #include "data/cell.h"
 
+using namespace Theseus::Core;
+
 TEST(MazeConstruction, CorrectSize)
 {
 	Maze* maze = new Maze(4,6);

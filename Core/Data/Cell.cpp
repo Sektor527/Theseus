@@ -1,6 +1,8 @@
 #include "Cell.h"
 #include <cstdlib>
 
+namespace Theseus { namespace Core {
+
 Cell::Cell()
 : _north(NULL), _east(NULL), _south(NULL), _west(NULL)
 , _openNorth(false), _openEast(false), _openSouth(false), _openWest(false)
@@ -103,3 +105,5 @@ void Cell::createPath(Cell* from, Direction direction)
 		
 	createPath(from, to);
 }
+
+}}

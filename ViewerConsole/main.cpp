@@ -4,6 +4,8 @@
 #include "Generators/GeneratorDepthFirst.h"
 #include "Plotter/Plotter.h"
 
+using namespace Theseus::Core;
+
 void outputClear();
 void outputMaze(Maze* maze);
 void outputLegend();

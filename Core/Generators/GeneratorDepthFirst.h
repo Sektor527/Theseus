@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 
+namespace Theseus { namespace Core {
+
 class Maze;
 class Cell;
 
@@ -27,3 +29,5 @@ private:
 };
 
 void shuffle(std::vector<Cell*>& cells);
+
+}}

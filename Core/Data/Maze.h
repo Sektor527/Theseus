@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 
+namespace Theseus { namespace Core {
+
 class Cell;
 
 class Maze
@@ -28,3 +30,5 @@ private:
 	Cell* _entrance;
 	Cell* _exit;
 };
+
+}}

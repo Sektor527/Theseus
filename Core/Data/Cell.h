@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 
+namespace Theseus { namespace Core {
+
 class Cell
 {
 public:
@@ -54,3 +56,5 @@ private:
 	bool _openSouth;
 	bool _openWest;
 };
+
+}}

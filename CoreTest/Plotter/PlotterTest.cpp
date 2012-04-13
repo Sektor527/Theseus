@@ -3,6 +3,8 @@
 #include "Data/Maze.h"
 #include "Plotter/Plotter.h"
 
+using namespace Theseus::Core;
+
 TEST(Plotter,CorrectSizes)
 {
 	Maze* maze = new Maze(4,6);

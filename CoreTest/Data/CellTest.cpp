@@ -1,6 +1,8 @@
 #include "gtest/gtest.h"
 #include "data/Cell.h"
 
+using namespace Theseus::Core;
+
 TEST(CellDefaultValues, Neighbors)
 {
 	Cell* cell = new Cell();

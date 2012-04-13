@@ -4,6 +4,8 @@
 #include "Data/Cell.h"
 #include "Generators/GeneratorDepthFirst.h"
 
+using namespace Theseus::Core;
+
 TEST(GeneratorDepthFirst,ShuffleList)
 {
 	Cell* cell_1 = new Cell();

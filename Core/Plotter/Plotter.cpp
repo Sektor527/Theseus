@@ -3,6 +3,8 @@
 #include "data/Maze.h"
 #include "data/Cell.h"
 
+namespace Theseus { namespace Core {
+
 Plotter* Plotter::plot(Maze* maze)
 {
 	Plotter* result = new Plotter();
@@ -120,3 +122,5 @@ char Plotter::getPixel(size_t x, size_t y) const
 {
 	return _plot[y][x];
 }
+
+}}

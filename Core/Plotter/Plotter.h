@@ -1,5 +1,7 @@
 #pragma once
 
+namespace Theseus { namespace Core {
+
 class Maze;
 
 class Plotter
@@ -29,3 +31,5 @@ private:
 	size_t _width, _height;
 	char** _plot;
 };
+
+}}
