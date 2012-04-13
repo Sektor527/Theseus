@@ -6,9 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Theseus.Data;
-using Theseus.Generators;
-using Theseus.Plotter;
+using Theseus.ManagedCore;
 using WinformsViewer.Generators;
 using WinformsViewer.UserControl;
 using Size = System.Drawing.Size;
@@ -19,7 +17,7 @@ namespace WinformsViewer
 	{
 		private Maze _maze;
 		private Avatar _avatar;
-		private Plot _plot;
+		private Plotter _plot;
 
 		private Graphics _graphics;
 
@@ -37,24 +35,24 @@ namespace WinformsViewer
 
 			if (_maze == null) return;
 
-			for (int y = 0; y < _plot.Size.Y; ++y)
+			for (uint y = 0; y < _plot.getSizeHeight(); ++y)
 			{
-				for (int x = 0; x < _plot.Size.X; ++x)
+				for (uint x = 0; x < _plot.getSizeWidth(); ++x)
 				{
 					// Color
 					Color color;
-					switch (_plot.Image[x][y])
+					switch (_plot.getPixel(x,y))
 					{
-						case Pixels.Space:
+						case Plotter.Pixels.Space:
 							color = Color.White;
 							break;
-						case Pixels.Wall:
+						case Plotter.Pixels.Wall:
 							color = Color.Black;
 							break;
-						case Pixels.Entrance:
+						case Plotter.Pixels.Entrance:
 							color = Color.YellowGreen;
 							break;
-						case Pixels.Exit:
+						case Plotter.Pixels.Exit:
 							color = Color.YellowGreen;
 							break;
 						default:
@@ -71,11 +69,11 @@ namespace WinformsViewer
 			}
 		}
 
-		private void DrawBlock(int x, int y, Color color)
+		private void DrawBlock(uint x, uint y, Color color)
 		{
 			// Position
-			int posX = Offset + (x * Thickness);
-			int posY = Offset + (y * Thickness);
+			uint posX = Offset + (x * Thickness);
+			uint posY = Offset + (y * Thickness);
 
 			using (SolidBrush brush = new SolidBrush(color))
 				_graphics.FillRectangle(brush, posX, posY, Thickness, Thickness);
@@ -83,8 +81,8 @@ namespace WinformsViewer
 
 		private void btnCreate_Click(object sender, EventArgs e)
 		{
-			int SizeX = (int)numWidth.Value;
-			int SizeY = (int)numHeight.Value;
+			uint SizeX = (uint)numWidth.Value;
+			uint SizeY = (uint)numHeight.Value;
 
 			_maze = new Maze(SizeX, SizeY);
 
@@ -92,16 +90,29 @@ namespace WinformsViewer
 			{
 				case 0:
 					ConfiguratorDepthFirst conf = new ConfiguratorDepthFirst { RandomTraverse = ((PanelGeneratorDepthFirst)panelAlgorithmSettings).Random };
-					GeneratorDepthFirst.Generate(_maze, conf);
+					GeneratorDepthFirst.generate(_maze, conf);
 					break;
 			}
 
-			_plot = Plotter.Plot(_maze);
+			_plot = Plotter.plot(_maze);
 
-			Location entrance = Plotter.TranslateLocation(_maze.Location(_maze.Entrance));
-			_avatar = new Avatar(new Location(entrance.X, entrance.Y - 1));
+			_avatar = new Avatar(findEntrance());
 
 			canvas.Refresh();
+		}
+
+		private Location findEntrance()
+		{
+			for (uint y = 0; y < _plot.getSizeHeight(); ++y)
+			{
+				for (uint x = 0; x < _plot.getSizeWidth(); ++x)
+				{
+					if (_plot.getPixel(x, y) == Plotter.Pixels.Entrance)
+						return new Location(x, y);
+				}
+			}
+
+			return new Location(0, 0);
 		}
 
 		private void comboAlgorithm_SelectedIndexChanged(object sender, EventArgs e)
@@ -141,7 +152,7 @@ namespace WinformsViewer
 					Close();
 					return true;
 				case Keys.W:
-					if (_avatar.Location.Y > 0 && _plot.Image[_avatar.Location.X][_avatar.Location.Y - 1] == Pixels.Space)
+					if (_avatar.Location.Y > 0 && _plot.getPixel(_avatar.Location.X, _avatar.Location.Y - 1) == Plotter.Pixels.Space)
 					{
 						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.White);
 
@@ -151,7 +162,7 @@ namespace WinformsViewer
 					}
 					break;
 				case Keys.D:
-					if (_avatar.Location.X < _plot.Size.X && _plot.Image[_avatar.Location.X + 1][_avatar.Location.Y] == Pixels.Space)
+					if (_avatar.Location.X < _plot.getSizeWidth() && _plot.getPixel(_avatar.Location.X + 1, _avatar.Location.Y) == Plotter.Pixels.Space)
 					{
 						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.White);
 
@@ -161,7 +172,7 @@ namespace WinformsViewer
 					}
 					break;
 				case Keys.S:
-					if (_avatar.Location.Y < _plot.Size.Y && _plot.Image[_avatar.Location.X][_avatar.Location.Y + 1] == Pixels.Space)
+					if (_avatar.Location.Y < _plot.getSizeHeight() && _plot.getPixel(_avatar.Location.X, _avatar.Location.Y + 1) == Plotter.Pixels.Space)
 					{
 						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.White);
 
@@ -171,7 +182,7 @@ namespace WinformsViewer
 					}
 					break;
 				case Keys.A:
-					if (_avatar.Location.X > 0 && _plot.Image[_avatar.Location.X - 1][_avatar.Location.Y] == Pixels.Space)
+					if (_avatar.Location.X > 0 && _plot.getPixel(_avatar.Location.X - 1, _avatar.Location.Y) == Plotter.Pixels.Space)
 					{
 						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.White);
 
@@ -182,6 +193,16 @@ namespace WinformsViewer
 					break;
 			}
 			return false;
+		}
+
+		private static Location TranslateLocation(Location mazeLocation)
+		{
+			Location plotLocation = new Location();
+
+			plotLocation.X = mazeLocation.X * 2 + 1;
+			plotLocation.Y = mazeLocation.Y * 2 + 1;
+
+			return plotLocation;
 		}
 	}
 }
