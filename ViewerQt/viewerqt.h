@@ -4,7 +4,9 @@
 #include <QtGui/QMainWindow>
 #include "ui_viewerqt.h"
 
-class ConfiguratorModel;
+namespace Theseus { namespace Core {
+	class Maze;
+}}
 
 class ViewerQt : public QMainWindow
 {
@@ -15,7 +17,12 @@ public:
 	~ViewerQt();
 
 private:
+	void createMaze();
+
+private:
 	Ui::ViewerQtClass ui;
+
+	Theseus::Core::Maze* _maze;
 };
 
 #endif // VIEWERQT_H

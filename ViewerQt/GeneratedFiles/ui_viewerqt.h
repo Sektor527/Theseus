@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'viewerqt.ui'
 **
-** Created: Wed 18. Apr 16:29:10 2012
+** Created: Wed 18. Apr 16:30:50 2012
 **      by: Qt User Interface Compiler version 4.6.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -14,6 +14,7 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QGraphicsView>
 #include <QtGui/QHeaderView>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenuBar>
@@ -27,6 +28,7 @@ class Ui_ViewerQtClass
 {
 public:
     QWidget *centralWidget;
+    QGraphicsView *graphicsView;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -39,6 +41,9 @@ public:
         ViewerQtClass->setDockOptions(QMainWindow::AnimatedDocks);
         centralWidget = new QWidget(ViewerQtClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
+        graphicsView = new QGraphicsView(centralWidget);
+        graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
+        graphicsView->setGeometry(QRect(10, 10, 671, 421));
         ViewerQtClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(ViewerQtClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
