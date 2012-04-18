@@ -16,6 +16,9 @@ public:
 	ViewerQt(QWidget *parent = 0, Qt::WFlags flags = 0);
 	~ViewerQt();
 
+protected:
+	virtual void keyPressEvent(QKeyEvent* event);
+
 private:
 	void createMaze();
 

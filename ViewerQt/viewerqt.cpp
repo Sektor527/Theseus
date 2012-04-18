@@ -1,6 +1,7 @@
 #include "viewerqt.h"
 #include <QGraphicsGridLayout>
 #include <QGraphicsWidget>
+#include <QLabel>
 
 #include "Data/Maze.h"
 #include "Generators/GeneratorDepthFirst.h"
@@ -12,6 +13,10 @@ ViewerQt::ViewerQt(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
 	ui.setupUi(this);
+
+	QLabel* label = new QLabel();
+	label->setText("<space> - Create new maze | <q> - Quit");
+	ui.statusBar->addWidget(label);
 
 	ui.graphicsView->scale(3.f,3.f);
 
@@ -73,4 +78,13 @@ void ViewerQt::createMaze()
 	}
 
 	ui.graphicsView->setScene(scene);
+}
+
+void ViewerQt::keyPressEvent(QKeyEvent* event)
+{
+	if (event->type() == QEvent::KeyPress && event->key() == Qt::Key_Space)
+		createMaze();
+
+	if (event->type() == QEvent::KeyPress && event->key() == Qt::Key_Q)
+		close();
 }
