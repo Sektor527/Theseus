@@ -11,7 +11,7 @@ using namespace Theseus::Core;
 
 ViewerQt::ViewerQt(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
-	, _maze(NULL), _plot(NULL), _scene(new QGraphicsScene)
+	, _maze(NULL), _plot(NULL), _scene(NULL)
 {
 	ui.setupUi(this);
 
@@ -28,8 +28,6 @@ ViewerQt::ViewerQt(QWidget *parent, Qt::WFlags flags)
 ViewerQt::~ViewerQt()
 {
 	cleanup();
-
-	delete _scene;
 }
 
 void ViewerQt::cleanup()
@@ -44,6 +42,12 @@ void ViewerQt::cleanup()
 	{
 		delete _plot;
 		_plot = NULL;
+	}
+
+	if (_scene)
+	{
+		delete _scene;
+		_scene = NULL;
 	}
 }
 
@@ -64,7 +68,8 @@ void ViewerQt::createMaze()
 
 void ViewerQt::drawMaze()
 {
-	_scene->clear();
+	_scene = new QGraphicsScene();
+	ui.graphicsView->setScene(_scene);
 
 	QPen pen;
 	pen.setStyle(Qt::NoPen);
