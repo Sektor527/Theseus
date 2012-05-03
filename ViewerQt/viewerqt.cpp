@@ -21,7 +21,7 @@ ViewerQt::ViewerQt(QWidget *parent, Qt::WFlags flags)
 
 	_scene = new QGraphicsScene();
 	ui.graphicsView->setScene(_scene);
-	ui.graphicsView->scale(3.f,3.f);
+	ui.graphicsView->scale(5.f,5.f);
 
 	createMaze();
 }
@@ -50,7 +50,7 @@ void ViewerQt::createMaze()
 {
 	cleanup();
 
-	_maze = new Maze(100, 60);
+	_maze = new Maze(20, 12);
 
 	ConfiguratorDepthFirst conf;
 	conf.RandomTraverse = true;
