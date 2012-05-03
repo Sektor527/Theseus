@@ -6,6 +6,7 @@
 
 namespace Theseus { namespace Core {
 	class Maze;
+	class Plotter;
 }}
 
 class ViewerQt : public QMainWindow
@@ -21,11 +22,19 @@ protected:
 
 private:
 	void createMaze();
+	void drawPixel(size_t x, size_t y);
+	void moveAvatar(size_t x, size_t y);
 
 private:
 	Ui::ViewerQtClass ui;
+	QGraphicsScene* _scene;
 
 	Theseus::Core::Maze* _maze;
+	Theseus::Core::Plotter* _plot;
+
+	size_t _avatarX;
+	size_t _avatarY;
+
 };
 
 #endif // VIEWERQT_H
