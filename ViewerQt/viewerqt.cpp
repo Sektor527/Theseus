@@ -11,6 +11,7 @@ using namespace Theseus::Core;
 
 ViewerQt::ViewerQt(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
+	, _maze(NULL), _plot(NULL)
 {
 	ui.setupUi(this);
 
@@ -18,6 +19,8 @@ ViewerQt::ViewerQt(QWidget *parent, Qt::WFlags flags)
 	label->setText("<space> - Create new maze | <q> - Quit");
 	ui.statusBar->addWidget(label);
 
+	_scene = new QGraphicsScene();
+	ui.graphicsView->setScene(_scene);
 	ui.graphicsView->scale(3.f,3.f);
 
 	createMaze();
@@ -25,22 +28,41 @@ ViewerQt::ViewerQt(QWidget *parent, Qt::WFlags flags)
 
 ViewerQt::~ViewerQt()
 {
+	cleanup();
+}
 
+void ViewerQt::cleanup()
+{
+	if (_maze)
+	{
+		delete _maze;
+		_maze = NULL;
+	}
+
+	if (_plot) 
+	{
+		delete _plot;
+		_plot = NULL;
+	}
 }
 
 void ViewerQt::createMaze()
 {
+	cleanup();
+
 	_maze = new Maze(100, 60);
+
 	ConfiguratorDepthFirst conf;
 	conf.RandomTraverse = true;
 	GeneratorDepthFirst::generate(_maze, conf);
 
-	_scene = new QGraphicsScene();
-	ui.graphicsView->setScene(_scene);
-
-
 	_plot = Plotter::plot(_maze);
 
+	drawMaze();
+}
+
+void ViewerQt::drawMaze()
+{
 	QPen pen;
 	pen.setStyle(Qt::NoPen);
 
@@ -60,39 +82,6 @@ void ViewerQt::createMaze()
 			drawPixel(x, y);
 		}
 	}
-}
-
-void ViewerQt::keyPressEvent(QKeyEvent* event)
-{
-	if (event->type() == QEvent::KeyPress && event->key() == Qt::Key_Space)
-		createMaze();
-
-	if (event->type() == QEvent::KeyPress && event->key() == Qt::Key_Q)
-		close();
-
-	if (event->type() == QEvent::KeyPress && event->key() == Qt::Key_W)
-		moveAvatar(_avatarX, _avatarY-1);
-
-	if (event->type() == QEvent::KeyPress && event->key() == Qt::Key_A)
-		moveAvatar(_avatarX-1, _avatarY);
-
-	if (event->type() == QEvent::KeyPress && event->key() == Qt::Key_S)
-		moveAvatar(_avatarX, _avatarY+1);
-
-	if (event->type() == QEvent::KeyPress && event->key() == Qt::Key_D)
-		moveAvatar(_avatarX+1, _avatarY);
-}
-
-void ViewerQt::moveAvatar(size_t x, size_t y)
-{
-	if (_plot->getPixel(x, y) != Plotter::Pixels::Space) return;
-
-	size_t oldX = _avatarX;
-	size_t oldY = _avatarY;
-	_avatarX = x;
-	_avatarY = y;
-	drawPixel(oldX, oldY);
-	drawPixel(_avatarX, _avatarY);
 }
 
 void ViewerQt::drawPixel(size_t x, size_t y)
@@ -131,4 +120,37 @@ void ViewerQt::drawPixel(size_t x, size_t y)
 	rect->setBrush(brush);
 
 	_scene->addItem(rect);
+}
+
+void ViewerQt::keyPressEvent(QKeyEvent* event)
+{
+	if (event->type() == QEvent::KeyPress && event->key() == Qt::Key_Space)
+		createMaze();
+
+	if (event->type() == QEvent::KeyPress && event->key() == Qt::Key_Q)
+		close();
+
+	if (event->type() == QEvent::KeyPress && event->key() == Qt::Key_W)
+		moveAvatar(_avatarX, _avatarY-1);
+
+	if (event->type() == QEvent::KeyPress && event->key() == Qt::Key_A)
+		moveAvatar(_avatarX-1, _avatarY);
+
+	if (event->type() == QEvent::KeyPress && event->key() == Qt::Key_S)
+		moveAvatar(_avatarX, _avatarY+1);
+
+	if (event->type() == QEvent::KeyPress && event->key() == Qt::Key_D)
+		moveAvatar(_avatarX+1, _avatarY);
+}
+
+void ViewerQt::moveAvatar(size_t x, size_t y)
+{
+	if (_plot->getPixel(x, y) != Plotter::Pixels::Space) return;
+
+	size_t oldX = _avatarX;
+	size_t oldY = _avatarY;
+	_avatarX = x;
+	_avatarY = y;
+	drawPixel(oldX, oldY);
+	drawPixel(_avatarX, _avatarY);
 }

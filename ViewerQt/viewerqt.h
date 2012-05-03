@@ -22,8 +22,11 @@ protected:
 
 private:
 	void createMaze();
+	void drawMaze();
 	void drawPixel(size_t x, size_t y);
 	void moveAvatar(size_t x, size_t y);
+
+	void cleanup();
 
 private:
 	Ui::ViewerQtClass ui;
