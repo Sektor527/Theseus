@@ -50,10 +50,10 @@ void ViewerQt::createMaze()
 {
 	cleanup();
 
-	_maze = new Maze(20, 12);
+	_maze = new Maze(ui.width->value(), ui.height->value());
 
 	ConfiguratorDepthFirst conf;
-	conf.RandomTraverse = true;
+	conf.RandomTraverse = ui.shuffle->checkState();
 	GeneratorDepthFirst::generate(_maze, conf);
 
 	_plot = Plotter::plot(_maze);
@@ -63,6 +63,8 @@ void ViewerQt::createMaze()
 
 void ViewerQt::drawMaze()
 {
+	_scene->clear();
+
 	QPen pen;
 	pen.setStyle(Qt::NoPen);
 
