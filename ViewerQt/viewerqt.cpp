@@ -81,7 +81,7 @@ void ViewerQt::drawMaze()
 	{
 		for (int x = 0; x < _plot->getSizeWidth(); ++x)
 		{
-			if (_plot->getPixel(x,y) == Plotter::Pixels::Entrance)
+			if (_plot->getPixel(x,y) == Plotter::Entrance)
 			{
 				_avatarX = x;
 				_avatarY = y;
@@ -102,16 +102,16 @@ void ViewerQt::drawPixel(size_t x, size_t y)
 
 	switch (_plot->getPixel(x, y))
 	{
-	case Plotter::Pixels::Space:
+	case Plotter::Space:
 		brush.setColor(QColor("White"));
 		break;
 
-	case Plotter::Pixels::Wall:
+	case Plotter::Wall:
 		brush.setColor(QColor("Black"));
 		break;
 
-	case Plotter::Pixels::Entrance:
-	case Plotter::Pixels::Exit:
+	case Plotter::Entrance:
+	case Plotter::Exit:
 		brush.setColor(QColor("YellowGreen"));
 		break;
 
@@ -153,7 +153,7 @@ void ViewerQt::keyPressEvent(QKeyEvent* event)
 
 void ViewerQt::moveAvatar(size_t x, size_t y)
 {
-	if (_plot->getPixel(x, y) != Plotter::Pixels::Space) return;
+	if (_plot->getPixel(x, y) != Plotter::Space) return;
 
 	size_t oldX = _avatarX;
 	size_t oldY = _avatarY;
