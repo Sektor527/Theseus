@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(GTEST_DIR);$(GTEST_DIR)/include;../core"
+				AdditionalIncludeDirectories="../gmock-1.6.0/gtest/include;../core"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -58,8 +58,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gtestd.lib gtest_main-mdd.lib"
-				AdditionalLibraryDirectories="$(GTEST_DIR)/lib"
+				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
@@ -113,7 +112,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="$(GTEST_DIR);$(GTEST_DIR)/include;../core"
+				AdditionalIncludeDirectories="../gmock-1.6.0/gtest/include;../core"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
@@ -130,8 +129,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gtest.lib gtest_main-md.lib"
-				AdditionalLibraryDirectories="$(GTEST_DIR)/lib"
+				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"

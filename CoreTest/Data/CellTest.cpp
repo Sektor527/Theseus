@@ -3,7 +3,10 @@
 
 using namespace Theseus::Core;
 
-TEST(CellDefaultValues, Neighbors)
+class CellTest : public ::testing::Test {
+};
+
+TEST_F(CellTest, DefaultNeighbors)
 {
 	Cell* cell = new Cell();
 
@@ -20,7 +23,7 @@ TEST(CellDefaultValues, Neighbors)
 	delete cell;
 }
 
-TEST(CellNeighbors, CellSettersAndGetters)
+TEST_F(CellTest, NeighborSettersAndGetters)
 {
 	Cell* cell = new Cell();
 	Cell* north = new Cell();
@@ -51,7 +54,7 @@ TEST(CellNeighbors, CellSettersAndGetters)
 	delete west;
 }
 
-TEST(CellNeighbors, OpenSettersAndGetters)
+TEST_F(CellTest, NeighborOpenSettersAndGetters)
 {
 	Cell* cell = new Cell();
 
@@ -78,214 +81,166 @@ TEST(CellNeighbors, OpenSettersAndGetters)
 	delete cell;
 }
 
-TEST(CreatePathCellToCell,North)
+class CellPathTest : public ::testing::Test {
+protected:
+	virtual void SetUp()
+	{
+		from = new Cell();
+		to = new Cell();
+	}
+
+	virtual void TearDown()
+	{
+		delete from;
+		delete to;
+	}
+
+	Cell* from;
+	Cell* to;
+};
+
+TEST_F(CellPathTest, PathToNorthCell)
 {
-	Cell* start = new Cell();
-	Cell* north = new Cell();
+	from->setNorth(to);
+	to->setSouth(from);
 
-	start->setNorth(north);
-	north->setSouth(start);
+	Cell::createPath(from, to);
 
-	Cell::createPath(start, north);
-
-	ASSERT_TRUE(start->isOpenNorth());
-	ASSERT_TRUE(north->isOpenSouth());
-
-	delete start;
-	delete north;
+	ASSERT_TRUE(from->isOpenNorth());
+	ASSERT_TRUE(to->isOpenSouth());
 }
 
-TEST(CreatePathCellToCell,East)
+TEST_F(CellPathTest, PathToEastCell)
 {
-	Cell* start = new Cell();
-	Cell* east = new Cell();
+	from->setEast(to);
+	to->setWest(from);
 
-	start->setEast(east);
-	east->setWest(start);
+	Cell::createPath(from, to);
 
-	Cell::createPath(start, east);
-
-	ASSERT_TRUE(start->isOpenEast());
-	ASSERT_TRUE(east->isOpenWest());
-
-	delete start;
-	delete east;
+	ASSERT_TRUE(from->isOpenEast());
+	ASSERT_TRUE(to->isOpenWest());
 }
 
-TEST(CreatePathCellToCell,South)
+TEST_F(CellPathTest, PathToSouthCell)
 {
-	Cell* start = new Cell();
-	Cell* south = new Cell();
+	from->setSouth(to);
+	to->setNorth(from);
 
-	start->setSouth(south);
-	south->setNorth(start);
+	Cell::createPath(from, to);
 
-	Cell::createPath(start, south);
-
-	ASSERT_TRUE(start->isOpenSouth());
-	ASSERT_TRUE(south->isOpenNorth());
-
-	delete start;
-	delete south;
+	ASSERT_TRUE(from->isOpenSouth());
+	ASSERT_TRUE(to->isOpenNorth());
 }
 
-TEST(CreatePathCellToCell,West)
+TEST_F(CellPathTest, PathToWestCell)
 {
-	Cell* start = new Cell();
-	Cell* west = new Cell();
+	from->setWest(to);
+	to->setEast(from);
 
-	start->setWest(west);
-	west->setEast(start);
+	Cell::createPath(from, to);
 
-	Cell::createPath(start, west);
-
-	ASSERT_TRUE(start->isOpenWest());
-	ASSERT_TRUE(west->isOpenEast());
-
-	delete start;
-	delete west;
+	ASSERT_TRUE(from->isOpenWest());
+	ASSERT_TRUE(to->isOpenEast());
 }
 
-TEST(CreatePathCellToCell, NonNeighboringCells)
+TEST_F(CellPathTest, NonNeighboringCells)
 {
-	Cell* start = new Cell();
-	Cell* end = new Cell();
-
-	Cell::createPath(start, end);
+	Cell::createPath(from, to);
 	
-	ASSERT_FALSE(start->isOpenNorth());
-	ASSERT_FALSE(start->isOpenEast());
-	ASSERT_FALSE(start->isOpenSouth());
-	ASSERT_FALSE(start->isOpenWest());
+	ASSERT_FALSE(from->isOpenNorth());
+	ASSERT_FALSE(from->isOpenEast());
+	ASSERT_FALSE(from->isOpenSouth());
+	ASSERT_FALSE(from->isOpenWest());
 
-	ASSERT_FALSE(end->isOpenNorth());
-	ASSERT_FALSE(end->isOpenEast());
-	ASSERT_FALSE(end->isOpenSouth());
-	ASSERT_FALSE(end->isOpenWest());
-
-	delete start;
-	delete end;
+	ASSERT_FALSE(to->isOpenNorth());
+	ASSERT_FALSE(to->isOpenEast());
+	ASSERT_FALSE(to->isOpenSouth());
+	ASSERT_FALSE(to->isOpenWest());
 }
 
-TEST(CreatePathCellToCell, NullParameters)
+TEST_F(CellPathTest, NullParametersCells)
 {
-	Cell* cell = new Cell();
+	Cell::createPath(from, NULL);
 
-	Cell::createPath(cell, NULL);
+	ASSERT_FALSE(from->isOpenNorth());
+	ASSERT_FALSE(from->isOpenEast());
+	ASSERT_FALSE(from->isOpenSouth());
+	ASSERT_FALSE(from->isOpenWest());
 
-	ASSERT_FALSE(cell->isOpenNorth());
-	ASSERT_FALSE(cell->isOpenEast());
-	ASSERT_FALSE(cell->isOpenSouth());
-	ASSERT_FALSE(cell->isOpenWest());
+	Cell::createPath(NULL, to);
 
-	Cell::createPath(NULL, cell);
-
-	ASSERT_FALSE(cell->isOpenNorth());
-	ASSERT_FALSE(cell->isOpenEast());
-	ASSERT_FALSE(cell->isOpenSouth());
-	ASSERT_FALSE(cell->isOpenWest());
-
-	delete cell;
+	ASSERT_FALSE(to->isOpenNorth());
+	ASSERT_FALSE(to->isOpenEast());
+	ASSERT_FALSE(to->isOpenSouth());
+	ASSERT_FALSE(to->isOpenWest());
 }
 
-TEST(CreatePathCellToDirection, North)
+TEST_F(CellPathTest, PathToNorthDirection)
 {
-	Cell* start = new Cell();
-	Cell* north = new Cell();
+	from->setNorth(to);
+	to->setSouth(from);
 
-	start->setNorth(north);
-	north->setSouth(start);
+	Cell::createPath(from, Cell::North);
 
-	Cell::createPath(start, Cell::North);
-
-	ASSERT_TRUE(start->isOpenNorth());
-	ASSERT_TRUE(north->isOpenSouth());
-
-	delete start;
-	delete north;
+	ASSERT_TRUE(from->isOpenNorth());
+	ASSERT_TRUE(to->isOpenSouth());
 }
 
-TEST(CreatePathCellToDirection,East)
+TEST_F(CellPathTest, PathToEastDirection)
 {
-	Cell* start = new Cell();
-	Cell* east = new Cell();
+	from->setEast(to);
+	to->setWest(from);
 
-	start->setEast(east);
-	east->setWest(start);
+	Cell::createPath(from, Cell::East);
 
-	Cell::createPath(start, Cell::East);
-
-	ASSERT_TRUE(start->isOpenEast());
-	ASSERT_TRUE(east->isOpenWest());
-
-	delete start;
-	delete east;
+	ASSERT_TRUE(from->isOpenEast());
+	ASSERT_TRUE(to->isOpenWest());
 }
 
-TEST(CreatePathCellToDirection,South)
+TEST_F(CellPathTest, PathToSouthDirection)
 {
-	Cell* start = new Cell();
-	Cell* south = new Cell();
+	from->setSouth(to);
+	to->setNorth(from);
 
-	start->setSouth(south);
-	south->setNorth(start);
+	Cell::createPath(from, Cell::South);
 
-	Cell::createPath(start, Cell::South);
-
-	ASSERT_TRUE(start->isOpenSouth());
-	ASSERT_TRUE(south->isOpenNorth());
-
-	delete start;
-	delete south;
+	ASSERT_TRUE(from->isOpenSouth());
+	ASSERT_TRUE(to->isOpenNorth());
 }
 
-TEST(CreatePathCellToDirection,West)
+TEST_F(CellPathTest, PathToWestDirection)
 {
-	Cell* start = new Cell();
-	Cell* west = new Cell();
+	from->setWest(to);
+	to->setEast(from);
 
-	start->setWest(west);
-	west->setEast(start);
+	Cell::createPath(from, Cell::West);
 
-	Cell::createPath(start, Cell::West);
-
-	ASSERT_TRUE(start->isOpenWest());
-	ASSERT_TRUE(west->isOpenEast());
-
-	delete start;
-	delete west;
+	ASSERT_TRUE(from->isOpenWest());
+	ASSERT_TRUE(to->isOpenEast());
 }
 
-TEST(CreatePathCellToDirection, NoNeighborCell)
+TEST_F(CellPathTest, NoNeighborCell)
 {
-	Cell* cell = new Cell();
+	Cell::createPath(from, Cell::North);
+	Cell::createPath(from, Cell::East);
+	Cell::createPath(from, Cell::South);
+	Cell::createPath(from, Cell::West);
 
-	Cell::createPath(cell, Cell::North);
-	Cell::createPath(cell, Cell::East);
-	Cell::createPath(cell, Cell::South);
-	Cell::createPath(cell, Cell::West);
-
-	ASSERT_FALSE(cell->isOpenNorth());
-	ASSERT_FALSE(cell->isOpenEast());
-	ASSERT_FALSE(cell->isOpenSouth());
-	ASSERT_FALSE(cell->isOpenWest());
-
-	delete cell;
+	ASSERT_FALSE(from->isOpenNorth());
+	ASSERT_FALSE(from->isOpenEast());
+	ASSERT_FALSE(from->isOpenSouth());
+	ASSERT_FALSE(from->isOpenWest());
 }
 
-TEST(CreatePathCellToDirection, NullParameters)
+TEST_F(CellPathTest, NullParametersDirection)
 {
-	Cell* cell = new Cell();
-
 	Cell::createPath(NULL, Cell::North);
 	Cell::createPath(NULL, Cell::East);
 	Cell::createPath(NULL, Cell::South);
 	Cell::createPath(NULL, Cell::West);
 
-	ASSERT_FALSE(cell->isOpenNorth());
-	ASSERT_FALSE(cell->isOpenEast());
-	ASSERT_FALSE(cell->isOpenSouth());
-	ASSERT_FALSE(cell->isOpenWest());
-
-	delete cell;
+	ASSERT_FALSE(from->isOpenNorth());
+	ASSERT_FALSE(from->isOpenEast());
+	ASSERT_FALSE(from->isOpenSouth());
+	ASSERT_FALSE(from->isOpenWest());
 }

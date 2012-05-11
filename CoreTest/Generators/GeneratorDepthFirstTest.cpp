@@ -6,7 +6,10 @@
 
 using namespace Theseus::Core;
 
-TEST(GeneratorDepthFirst,ShuffleList)
+class GeneratorDepthFirstTest : public ::testing::Test {
+};
+
+TEST_F(GeneratorDepthFirstTest,ShuffleList)
 {
 	Cell* cell_1 = new Cell();
 	Cell* cell_2 = new Cell();
@@ -54,7 +57,7 @@ TEST(GeneratorDepthFirst,ShuffleList)
 	delete cell_5;
 }
 
-TEST(GeneratorDepthFirst,Generate)
+TEST_F(GeneratorDepthFirstTest,Generate)
 {
 	Maze* maze = new Maze(3, 3);
 

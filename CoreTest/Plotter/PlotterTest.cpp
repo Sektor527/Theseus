@@ -5,7 +5,10 @@
 
 using namespace Theseus::Core;
 
-TEST(Plotter,CorrectSizes)
+class PlotterTest : public ::testing::Test {
+};
+
+TEST_F(PlotterTest,CorrectSizes)
 {
 	Maze* maze = new Maze(4,6);
 	Plotter* plot = Plotter::plot(maze);
@@ -17,7 +20,7 @@ TEST(Plotter,CorrectSizes)
 	delete plot;
 }
 
-TEST(Plotter,ContainsBasicElements)
+TEST_F(PlotterTest,ContainsBasicElements)
 {
 	Maze* maze = new Maze(2,2);
 	Plotter* plot = Plotter::plot(maze);
@@ -65,7 +68,7 @@ TEST(Plotter,ContainsBasicElements)
 	delete plot;
 }
 
-TEST(Plotter,MazeBorders)
+TEST_F(PlotterTest,MazeBorders)
 {
 	Maze* maze = new Maze(3, 3);
 	Plotter* plot = Plotter::plot(maze);
@@ -100,7 +103,7 @@ TEST(Plotter,MazeBorders)
 	delete plot;
 }
 
-TEST(Plotter,EntranceAndExitPlacement)
+TEST_F(PlotterTest,EntranceAndExitPlacement)
 {
 	Maze* maze = new Maze(3, 3);
 	Plotter* plot = Plotter::plot(maze);

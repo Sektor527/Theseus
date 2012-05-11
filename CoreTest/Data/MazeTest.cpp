@@ -4,7 +4,10 @@
 
 using namespace Theseus::Core;
 
-TEST(MazeConstruction, CorrectSize)
+class MazeTest : public ::testing::Test {
+};
+
+TEST_F(MazeTest, ConstructorCorrectSize)
 {
 	Maze* maze = new Maze(4,6);
 	
@@ -14,7 +17,7 @@ TEST(MazeConstruction, CorrectSize)
 	delete maze;
 }
 
-TEST(MazeConstruction, ZeroWidth)
+TEST_F(MazeTest, ConstructorZeroWidth)
 {
 	Maze* maze = new Maze(0, 6);
 
@@ -24,7 +27,7 @@ TEST(MazeConstruction, ZeroWidth)
 	delete maze;
 }
 
-TEST(MazeConstruction, ZeroHeight)
+TEST_F(MazeTest, ConstructorZeroHeight)
 {
 	Maze* maze = new Maze(4, 0);
 
@@ -34,7 +37,7 @@ TEST(MazeConstruction, ZeroHeight)
 	delete maze;
 }
 
-TEST(MazeConstruction, AllCells)
+TEST_F(MazeTest, ConstructorAllCells)
 {
 	Maze* maze = new Maze(4, 6);
 
@@ -55,7 +58,7 @@ TEST(MazeConstruction, AllCells)
 	delete maze;
 }
 
-TEST(MazeConstruction, InitialNeighbors)
+TEST_F(MazeTest, ConstructorInitialNeighbors)
 {
 	int width = 6;
 	int height = 4;
@@ -93,7 +96,7 @@ TEST(MazeConstruction, InitialNeighbors)
 	delete maze;
 }
 
-TEST(MazeConstruction, InitialWalls)
+TEST_F(MazeTest, ConstructorInitialWalls)
 {
 	Maze* maze = new Maze(4, 6);
 
@@ -112,7 +115,7 @@ TEST(MazeConstruction, InitialWalls)
 	delete maze;
 }
 
-TEST(MazeConstruction, EntranceAndExit)
+TEST_F(MazeTest, ConstructorEntranceAndExit)
 {
 	Maze* maze = new Maze(4, 6);
 
@@ -122,7 +125,7 @@ TEST(MazeConstruction, EntranceAndExit)
 	delete maze;
 }
 
-TEST(MazeReset, CloseAllPaths)
+TEST_F(MazeTest, ResetClosesAllPaths)
 {
 	Maze* maze = new Maze(4, 6);
 
