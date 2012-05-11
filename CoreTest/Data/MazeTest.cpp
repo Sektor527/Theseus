@@ -11,8 +11,8 @@ TEST_F(MazeTest, ConstructorCorrectSize)
 {
 	Maze* maze = new Maze(4,6);
 	
-	ASSERT_EQ(4, maze->getSizeWidth());
-	ASSERT_EQ(6, maze->getSizeHeight());
+	EXPECT_EQ(4, maze->getSizeWidth());
+	EXPECT_EQ(6, maze->getSizeHeight());
 
 	delete maze;
 }
@@ -21,8 +21,8 @@ TEST_F(MazeTest, ConstructorZeroWidth)
 {
 	Maze* maze = new Maze(0, 6);
 
-	ASSERT_EQ(1, maze->getSizeWidth());
-	ASSERT_EQ(6, maze->getSizeHeight());
+	EXPECT_EQ(1, maze->getSizeWidth());
+	EXPECT_EQ(6, maze->getSizeHeight());
 
 	delete maze;
 }
@@ -31,8 +31,8 @@ TEST_F(MazeTest, ConstructorZeroHeight)
 {
 	Maze* maze = new Maze(4, 0);
 
-	ASSERT_EQ(4, maze->getSizeWidth());
-	ASSERT_EQ(1, maze->getSizeHeight());
+	EXPECT_EQ(4, maze->getSizeWidth());
+	EXPECT_EQ(1, maze->getSizeHeight());
 
 	delete maze;
 }
@@ -46,14 +46,14 @@ TEST_F(MazeTest, ConstructorAllCells)
 		for (size_t w = 0; w < maze->getSizeWidth(); ++w)
 		{
 			Cell* cell = maze->getCell(w,h);
-			ASSERT_TRUE(cell != NULL);
+			EXPECT_TRUE(cell != NULL);
 		}
 	}
 
-	ASSERT_EQ(NULL, maze->getCell(-2, 3));
-	ASSERT_EQ(NULL, maze->getCell(500, 3));
-	ASSERT_EQ(NULL, maze->getCell(2, -2));
-	ASSERT_EQ(NULL, maze->getCell(2, 500));
+	EXPECT_EQ(NULL, maze->getCell(-2, 3));
+	EXPECT_EQ(NULL, maze->getCell(500, 3));
+	EXPECT_EQ(NULL, maze->getCell(2, -2));
+	EXPECT_EQ(NULL, maze->getCell(2, 500));
 
 	delete maze;
 }
@@ -72,24 +72,24 @@ TEST_F(MazeTest, ConstructorInitialNeighbors)
 			Cell* cell = maze->getCell(w,h);
 
 			if (h == 0)
-				ASSERT_EQ(NULL, cell->getNorth());
+				EXPECT_EQ(NULL, cell->getNorth());
 			else
-				ASSERT_EQ(maze->getCell(w, h-1), cell->getNorth());
+				EXPECT_EQ(maze->getCell(w, h-1), cell->getNorth());
 
 			if (h == height - 1)
-				ASSERT_EQ(NULL, cell->getSouth());
+				EXPECT_EQ(NULL, cell->getSouth());
 			else
-				ASSERT_EQ(maze->getCell(w, h+1), cell->getSouth());
+				EXPECT_EQ(maze->getCell(w, h+1), cell->getSouth());
 
 			if (w == 0)
-				ASSERT_EQ(NULL, cell->getWest());
+				EXPECT_EQ(NULL, cell->getWest());
 			else
-				ASSERT_EQ(maze->getCell(w-1, h), cell->getWest());
+				EXPECT_EQ(maze->getCell(w-1, h), cell->getWest());
 
 			if (w == width - 1)
-				ASSERT_EQ(NULL, cell->getEast());
+				EXPECT_EQ(NULL, cell->getEast());
 			else
-				ASSERT_EQ(maze->getCell(w+1, h), cell->getEast());
+				EXPECT_EQ(maze->getCell(w+1, h), cell->getEast());
 		}
 	}
 
@@ -105,10 +105,10 @@ TEST_F(MazeTest, ConstructorInitialWalls)
 		for (size_t w = 0; w < maze->getSizeWidth(); ++w)
 		{
 			Cell* cell = maze->getCell(w, h);
-			ASSERT_FALSE(cell->isOpenNorth());
-			ASSERT_FALSE(cell->isOpenEast());
-			ASSERT_FALSE(cell->isOpenSouth());
-			ASSERT_FALSE(cell->isOpenWest());
+			EXPECT_FALSE(cell->isOpenNorth());
+			EXPECT_FALSE(cell->isOpenEast());
+			EXPECT_FALSE(cell->isOpenSouth());
+			EXPECT_FALSE(cell->isOpenWest());
 		}
 	}
 
@@ -119,8 +119,8 @@ TEST_F(MazeTest, ConstructorEntranceAndExit)
 {
 	Maze* maze = new Maze(4, 6);
 
-	ASSERT_EQ(maze->getEntrance(), maze->getCell(0,0));
-	ASSERT_EQ(maze->getExit(), maze->getCell(maze->getSizeWidth() - 1, maze->getSizeHeight() - 1));
+	EXPECT_EQ(maze->getEntrance(), maze->getCell(0,0));
+	EXPECT_EQ(maze->getExit(), maze->getCell(maze->getSizeWidth() - 1, maze->getSizeHeight() - 1));
 
 	delete maze;
 }
@@ -150,10 +150,10 @@ TEST_F(MazeTest, ResetClosesAllPaths)
 		for (size_t w = 0; w < maze->getSizeWidth(); ++w)
 		{
 			Cell* cell = maze->getCell(w, h);
-			ASSERT_FALSE(cell->isOpenNorth());
-			ASSERT_FALSE(cell->isOpenEast());
-			ASSERT_FALSE(cell->isOpenSouth());
-			ASSERT_FALSE(cell->isOpenWest());
+			EXPECT_FALSE(cell->isOpenNorth());
+			EXPECT_FALSE(cell->isOpenEast());
+			EXPECT_FALSE(cell->isOpenSouth());
+			EXPECT_FALSE(cell->isOpenWest());
 		}
 	}
 

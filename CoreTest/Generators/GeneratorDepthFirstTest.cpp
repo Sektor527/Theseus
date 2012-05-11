@@ -28,7 +28,7 @@ TEST_F(GeneratorDepthFirstTest,ShuffleList)
 	shuffle(list);
 
 	// Same number of items
-	ASSERT_EQ(5, list.size());
+	EXPECT_EQ(5, list.size());
 	
 	// All items present
 	bool found_1, found_2, found_3, found_4, found_5;
@@ -41,10 +41,10 @@ TEST_F(GeneratorDepthFirstTest,ShuffleList)
 		if (*it == cell_5) found_5 = true;
 	}
 
-	ASSERT_TRUE(found_1 && found_2 && found_3 && found_4 && found_5);
+	EXPECT_TRUE(found_1 && found_2 && found_3 && found_4 && found_5);
 
 	// No item in same spot
-	ASSERT_FALSE(cell_1 == list[0] && 
+	EXPECT_FALSE(cell_1 == list[0] && 
 	             cell_2 == list[1] && 
 							 cell_3 == list[2] && 
 							 cell_4 == list[3] && 
@@ -66,17 +66,17 @@ TEST_F(GeneratorDepthFirstTest,Generate)
 
 	GeneratorDepthFirst::generate(maze, config);
 
-	ASSERT_TRUE(maze->getCell(0, 0)->isOpenEast() || maze->getCell(0, 0)->isOpenSouth());
-	ASSERT_TRUE(maze->getCell(1, 0)->isOpenWest() || maze->getCell(1, 0)->isOpenEast() || maze->getCell(1, 0)->isOpenSouth());
-	ASSERT_TRUE(maze->getCell(2, 0)->isOpenWest() || maze->getCell(2, 0)->isOpenSouth());
+	EXPECT_TRUE(maze->getCell(0, 0)->isOpenEast() || maze->getCell(0, 0)->isOpenSouth());
+	EXPECT_TRUE(maze->getCell(1, 0)->isOpenWest() || maze->getCell(1, 0)->isOpenEast() || maze->getCell(1, 0)->isOpenSouth());
+	EXPECT_TRUE(maze->getCell(2, 0)->isOpenWest() || maze->getCell(2, 0)->isOpenSouth());
 
-	ASSERT_TRUE(maze->getCell(0, 1)->isOpenEast() || maze->getCell(0, 1)->isOpenNorth() || maze->getCell(0, 1)->isOpenSouth());
-	ASSERT_TRUE(maze->getCell(1, 1)->isOpenWest() || maze->getCell(1, 1)->isOpenEast() || maze->getCell(1, 1)->isOpenNorth() || maze->getCell(1, 1)->isOpenSouth());
-	ASSERT_TRUE(maze->getCell(2, 1)->isOpenWest() || maze->getCell(2, 1)->isOpenNorth() || maze->getCell(2, 1)->isOpenSouth());
+	EXPECT_TRUE(maze->getCell(0, 1)->isOpenEast() || maze->getCell(0, 1)->isOpenNorth() || maze->getCell(0, 1)->isOpenSouth());
+	EXPECT_TRUE(maze->getCell(1, 1)->isOpenWest() || maze->getCell(1, 1)->isOpenEast() || maze->getCell(1, 1)->isOpenNorth() || maze->getCell(1, 1)->isOpenSouth());
+	EXPECT_TRUE(maze->getCell(2, 1)->isOpenWest() || maze->getCell(2, 1)->isOpenNorth() || maze->getCell(2, 1)->isOpenSouth());
 
-	ASSERT_TRUE(maze->getCell(0, 2)->isOpenEast() || maze->getCell(0, 2)->isOpenNorth());
-	ASSERT_TRUE(maze->getCell(1, 2)->isOpenWest() || maze->getCell(1, 2)->isOpenEast() || maze->getCell(1, 2)->isOpenNorth());
-	ASSERT_TRUE(maze->getCell(2, 2)->isOpenWest() || maze->getCell(2, 2)->isOpenNorth());
+	EXPECT_TRUE(maze->getCell(0, 2)->isOpenEast() || maze->getCell(0, 2)->isOpenNorth());
+	EXPECT_TRUE(maze->getCell(1, 2)->isOpenWest() || maze->getCell(1, 2)->isOpenEast() || maze->getCell(1, 2)->isOpenNorth());
+	EXPECT_TRUE(maze->getCell(2, 2)->isOpenWest() || maze->getCell(2, 2)->isOpenNorth());
 
 	delete maze;
 }

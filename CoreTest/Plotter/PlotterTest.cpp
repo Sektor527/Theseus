@@ -13,8 +13,8 @@ TEST_F(PlotterTest,CorrectSizes)
 	Maze* maze = new Maze(4,6);
 	Plotter* plot = Plotter::plot(maze);
 
-	ASSERT_EQ(9, plot->getSizeWidth());
-	ASSERT_EQ(13, plot->getSizeHeight());
+	EXPECT_EQ(9, plot->getSizeWidth());
+	EXPECT_EQ(13, plot->getSizeHeight());
 
 	delete maze;
 	delete plot;
@@ -56,13 +56,13 @@ TEST_F(PlotterTest,ContainsBasicElements)
 		}
 	}
 
-	ASSERT_GT(foundSpace, 0);
-	ASSERT_GT(foundWall, 0);
+	EXPECT_GT(foundSpace, 0);
+	EXPECT_GT(foundWall, 0);
 
-	ASSERT_EQ(foundEntrance, 1);
-	ASSERT_EQ(foundExit, 1);
+	EXPECT_EQ(foundEntrance, 1);
+	EXPECT_EQ(foundExit, 1);
 
-	ASSERT_EQ(foundOther, 0);
+	EXPECT_EQ(foundOther, 0);
 
 	delete maze;
 	delete plot;
@@ -77,27 +77,27 @@ TEST_F(PlotterTest,MazeBorders)
 	for (size_t x = 0; x < plot->getSizeWidth(); ++x)
 	{
 		if (x == 1)
-			ASSERT_EQ(Plotter::Entrance, plot->getPixel(x, 0));
+			EXPECT_EQ(Plotter::Entrance, plot->getPixel(x, 0));
 		else
-			ASSERT_EQ(Plotter::Wall, plot->getPixel(x, 0));
+			EXPECT_EQ(Plotter::Wall, plot->getPixel(x, 0));
 	}
 
 	// Bottom border
 	for (size_t x = 0; x < plot->getSizeWidth(); ++x)
 	{
 		if (x == plot->getSizeWidth() - 2)
-			ASSERT_EQ(Plotter::Exit, plot->getPixel(x, plot->getSizeHeight()-1));
+			EXPECT_EQ(Plotter::Exit, plot->getPixel(x, plot->getSizeHeight()-1));
 		else
-			ASSERT_EQ(Plotter::Wall, plot->getPixel(x, plot->getSizeHeight()-1));
+			EXPECT_EQ(Plotter::Wall, plot->getPixel(x, plot->getSizeHeight()-1));
 	}
 
 	// Left border
 	for (size_t y = 0; y < plot->getSizeHeight(); ++y)
-		ASSERT_EQ(Plotter::Wall, plot->getPixel(0, y));
+		EXPECT_EQ(Plotter::Wall, plot->getPixel(0, y));
 
 	// Right border
 	for (size_t y = 0; y < plot->getSizeHeight(); ++y)
-		ASSERT_EQ(Plotter::Wall, plot->getPixel(plot->getSizeWidth()-1, y));
+		EXPECT_EQ(Plotter::Wall, plot->getPixel(plot->getSizeWidth()-1, y));
 
 	delete maze;
 	delete plot;
@@ -108,8 +108,8 @@ TEST_F(PlotterTest,EntranceAndExitPlacement)
 	Maze* maze = new Maze(3, 3);
 	Plotter* plot = Plotter::plot(maze);
 
-	ASSERT_EQ(Plotter::Entrance, plot->getPixel(1, 0));
-	ASSERT_EQ(Plotter::Exit, plot->getPixel(plot->getSizeWidth()-2,plot->getSizeHeight()-1));
+	EXPECT_EQ(Plotter::Entrance, plot->getPixel(1, 0));
+	EXPECT_EQ(Plotter::Exit, plot->getPixel(plot->getSizeWidth()-2,plot->getSizeHeight()-1));
 
 	delete maze;
 	delete plot;

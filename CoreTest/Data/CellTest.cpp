@@ -10,15 +10,15 @@ TEST_F(CellTest, DefaultNeighbors)
 {
 	Cell* cell = new Cell();
 
-	ASSERT_EQ(NULL, cell->getNorth());
-	ASSERT_EQ(NULL, cell->getEast());
-	ASSERT_EQ(NULL, cell->getSouth());
-	ASSERT_EQ(NULL, cell->getWest());
+	EXPECT_EQ(NULL, cell->getNorth());
+	EXPECT_EQ(NULL, cell->getEast());
+	EXPECT_EQ(NULL, cell->getSouth());
+	EXPECT_EQ(NULL, cell->getWest());
 
-	ASSERT_FALSE(cell->isOpenNorth());
-	ASSERT_FALSE(cell->isOpenEast());
-	ASSERT_FALSE(cell->isOpenSouth());
-	ASSERT_FALSE(cell->isOpenWest());
+	EXPECT_FALSE(cell->isOpenNorth());
+	EXPECT_FALSE(cell->isOpenEast());
+	EXPECT_FALSE(cell->isOpenSouth());
+	EXPECT_FALSE(cell->isOpenWest());
 
 	delete cell;
 }
@@ -36,16 +36,16 @@ TEST_F(CellTest, NeighborSettersAndGetters)
 	cell->setSouth(south);
 	cell->setWest(west);
 
-	ASSERT_EQ(north, cell->getNorth());
-	ASSERT_EQ(east, cell->getEast());
-	ASSERT_EQ(south, cell->getSouth());
-	ASSERT_EQ(west, cell->getWest());
+	EXPECT_EQ(north, cell->getNorth());
+	EXPECT_EQ(east, cell->getEast());
+	EXPECT_EQ(south, cell->getSouth());
+	EXPECT_EQ(west, cell->getWest());
 
-	ASSERT_EQ(4, cell->getNeighbors().size());
-	ASSERT_EQ(north, cell->getNeighbors()[0]);
-	ASSERT_EQ(east, cell->getNeighbors()[1]);
-	ASSERT_EQ(south, cell->getNeighbors()[2]);
-	ASSERT_EQ(west, cell->getNeighbors()[3]);
+	EXPECT_EQ(4, cell->getNeighbors().size());
+	EXPECT_EQ(north, cell->getNeighbors()[0]);
+	EXPECT_EQ(east, cell->getNeighbors()[1]);
+	EXPECT_EQ(south, cell->getNeighbors()[2]);
+	EXPECT_EQ(west, cell->getNeighbors()[3]);
 
 	delete cell;
 	delete north;
@@ -63,20 +63,20 @@ TEST_F(CellTest, NeighborOpenSettersAndGetters)
 	cell->setOpenSouth(true);
 	cell->setOpenWest(true);
 
-	ASSERT_TRUE(cell->isOpenNorth());
-	ASSERT_TRUE(cell->isOpenEast());
-	ASSERT_TRUE(cell->isOpenSouth());
-	ASSERT_TRUE(cell->isOpenWest());
+	EXPECT_TRUE(cell->isOpenNorth());
+	EXPECT_TRUE(cell->isOpenEast());
+	EXPECT_TRUE(cell->isOpenSouth());
+	EXPECT_TRUE(cell->isOpenWest());
 
 	cell->setOpenNorth(false);
 	cell->setOpenEast(false);
 	cell->setOpenSouth(false);
 	cell->setOpenWest(false);
 
-	ASSERT_FALSE(cell->isOpenNorth());
-	ASSERT_FALSE(cell->isOpenEast());
-	ASSERT_FALSE(cell->isOpenSouth());
-	ASSERT_FALSE(cell->isOpenWest());
+	EXPECT_FALSE(cell->isOpenNorth());
+	EXPECT_FALSE(cell->isOpenEast());
+	EXPECT_FALSE(cell->isOpenSouth());
+	EXPECT_FALSE(cell->isOpenWest());
 
 	delete cell;
 }
@@ -106,8 +106,8 @@ TEST_F(CellPathTest, PathToNorthCell)
 
 	Cell::createPath(from, to);
 
-	ASSERT_TRUE(from->isOpenNorth());
-	ASSERT_TRUE(to->isOpenSouth());
+	EXPECT_TRUE(from->isOpenNorth());
+	EXPECT_TRUE(to->isOpenSouth());
 }
 
 TEST_F(CellPathTest, PathToEastCell)
@@ -117,8 +117,8 @@ TEST_F(CellPathTest, PathToEastCell)
 
 	Cell::createPath(from, to);
 
-	ASSERT_TRUE(from->isOpenEast());
-	ASSERT_TRUE(to->isOpenWest());
+	EXPECT_TRUE(from->isOpenEast());
+	EXPECT_TRUE(to->isOpenWest());
 }
 
 TEST_F(CellPathTest, PathToSouthCell)
@@ -128,8 +128,8 @@ TEST_F(CellPathTest, PathToSouthCell)
 
 	Cell::createPath(from, to);
 
-	ASSERT_TRUE(from->isOpenSouth());
-	ASSERT_TRUE(to->isOpenNorth());
+	EXPECT_TRUE(from->isOpenSouth());
+	EXPECT_TRUE(to->isOpenNorth());
 }
 
 TEST_F(CellPathTest, PathToWestCell)
@@ -139,40 +139,40 @@ TEST_F(CellPathTest, PathToWestCell)
 
 	Cell::createPath(from, to);
 
-	ASSERT_TRUE(from->isOpenWest());
-	ASSERT_TRUE(to->isOpenEast());
+	EXPECT_TRUE(from->isOpenWest());
+	EXPECT_TRUE(to->isOpenEast());
 }
 
 TEST_F(CellPathTest, NonNeighboringCells)
 {
 	Cell::createPath(from, to);
 	
-	ASSERT_FALSE(from->isOpenNorth());
-	ASSERT_FALSE(from->isOpenEast());
-	ASSERT_FALSE(from->isOpenSouth());
-	ASSERT_FALSE(from->isOpenWest());
+	EXPECT_FALSE(from->isOpenNorth());
+	EXPECT_FALSE(from->isOpenEast());
+	EXPECT_FALSE(from->isOpenSouth());
+	EXPECT_FALSE(from->isOpenWest());
 
-	ASSERT_FALSE(to->isOpenNorth());
-	ASSERT_FALSE(to->isOpenEast());
-	ASSERT_FALSE(to->isOpenSouth());
-	ASSERT_FALSE(to->isOpenWest());
+	EXPECT_FALSE(to->isOpenNorth());
+	EXPECT_FALSE(to->isOpenEast());
+	EXPECT_FALSE(to->isOpenSouth());
+	EXPECT_FALSE(to->isOpenWest());
 }
 
 TEST_F(CellPathTest, NullParametersCells)
 {
 	Cell::createPath(from, NULL);
 
-	ASSERT_FALSE(from->isOpenNorth());
-	ASSERT_FALSE(from->isOpenEast());
-	ASSERT_FALSE(from->isOpenSouth());
-	ASSERT_FALSE(from->isOpenWest());
+	EXPECT_FALSE(from->isOpenNorth());
+	EXPECT_FALSE(from->isOpenEast());
+	EXPECT_FALSE(from->isOpenSouth());
+	EXPECT_FALSE(from->isOpenWest());
 
 	Cell::createPath(NULL, to);
 
-	ASSERT_FALSE(to->isOpenNorth());
-	ASSERT_FALSE(to->isOpenEast());
-	ASSERT_FALSE(to->isOpenSouth());
-	ASSERT_FALSE(to->isOpenWest());
+	EXPECT_FALSE(to->isOpenNorth());
+	EXPECT_FALSE(to->isOpenEast());
+	EXPECT_FALSE(to->isOpenSouth());
+	EXPECT_FALSE(to->isOpenWest());
 }
 
 TEST_F(CellPathTest, PathToNorthDirection)
@@ -182,8 +182,8 @@ TEST_F(CellPathTest, PathToNorthDirection)
 
 	Cell::createPath(from, Cell::North);
 
-	ASSERT_TRUE(from->isOpenNorth());
-	ASSERT_TRUE(to->isOpenSouth());
+	EXPECT_TRUE(from->isOpenNorth());
+	EXPECT_TRUE(to->isOpenSouth());
 }
 
 TEST_F(CellPathTest, PathToEastDirection)
@@ -193,8 +193,8 @@ TEST_F(CellPathTest, PathToEastDirection)
 
 	Cell::createPath(from, Cell::East);
 
-	ASSERT_TRUE(from->isOpenEast());
-	ASSERT_TRUE(to->isOpenWest());
+	EXPECT_TRUE(from->isOpenEast());
+	EXPECT_TRUE(to->isOpenWest());
 }
 
 TEST_F(CellPathTest, PathToSouthDirection)
@@ -204,8 +204,8 @@ TEST_F(CellPathTest, PathToSouthDirection)
 
 	Cell::createPath(from, Cell::South);
 
-	ASSERT_TRUE(from->isOpenSouth());
-	ASSERT_TRUE(to->isOpenNorth());
+	EXPECT_TRUE(from->isOpenSouth());
+	EXPECT_TRUE(to->isOpenNorth());
 }
 
 TEST_F(CellPathTest, PathToWestDirection)
@@ -215,8 +215,8 @@ TEST_F(CellPathTest, PathToWestDirection)
 
 	Cell::createPath(from, Cell::West);
 
-	ASSERT_TRUE(from->isOpenWest());
-	ASSERT_TRUE(to->isOpenEast());
+	EXPECT_TRUE(from->isOpenWest());
+	EXPECT_TRUE(to->isOpenEast());
 }
 
 TEST_F(CellPathTest, NoNeighborCell)
@@ -226,10 +226,10 @@ TEST_F(CellPathTest, NoNeighborCell)
 	Cell::createPath(from, Cell::South);
 	Cell::createPath(from, Cell::West);
 
-	ASSERT_FALSE(from->isOpenNorth());
-	ASSERT_FALSE(from->isOpenEast());
-	ASSERT_FALSE(from->isOpenSouth());
-	ASSERT_FALSE(from->isOpenWest());
+	EXPECT_FALSE(from->isOpenNorth());
+	EXPECT_FALSE(from->isOpenEast());
+	EXPECT_FALSE(from->isOpenSouth());
+	EXPECT_FALSE(from->isOpenWest());
 }
 
 TEST_F(CellPathTest, NullParametersDirection)
@@ -239,8 +239,8 @@ TEST_F(CellPathTest, NullParametersDirection)
 	Cell::createPath(NULL, Cell::South);
 	Cell::createPath(NULL, Cell::West);
 
-	ASSERT_FALSE(from->isOpenNorth());
-	ASSERT_FALSE(from->isOpenEast());
-	ASSERT_FALSE(from->isOpenSouth());
-	ASSERT_FALSE(from->isOpenWest());
+	EXPECT_FALSE(from->isOpenNorth());
+	EXPECT_FALSE(from->isOpenEast());
+	EXPECT_FALSE(from->isOpenSouth());
+	EXPECT_FALSE(from->isOpenWest());
 }
