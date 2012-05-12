@@ -8,7 +8,6 @@ namespace Theseus {
 	namespace Core {
 		class Maze;
 		class Cell;
-		class Plotter;
 		struct ConfiguratorDepthFirst;
 	}	
 
@@ -30,11 +29,26 @@ namespace ManagedCore {
 	public ref class Maze
 	{
 	public:
+		enum class Pixels
+		{
+			Space = 0,
+			Wall,
+			Entrance,
+			Exit,
+
+			Void = 255
+		};
+
+	public:
 		Maze(unsigned int width, unsigned int height);
 		~Maze();
 
 		Cell^ getEntrance();
 		Cell^ getExit();
+
+		unsigned int getPlotWidth();
+		unsigned int getPlotHeight();
+		Pixels getPlotPixel(unsigned int x, unsigned int y);
 
 	internal:
 		Core::Maze* getMaze();
@@ -65,31 +79,5 @@ namespace ManagedCore {
 	{
 	public:
 		static void generate(Maze^ maze, ConfiguratorDepthFirst^ configurator);
-	};
-
-	public ref class Plotter
-	{
-	public:
-		enum class Pixels
-		{
-			Space = 0,
-			Wall,
-			Entrance,
-			Exit,
-
-			Void = 255
-		};
-
-	public:
-		static Plotter^ plot(Maze^ maze);
-		~Plotter();
-
-		unsigned int getSizeWidth();
-		unsigned int getSizeHeight();
-		Pixels getPixel(unsigned int x, unsigned int y);
-
-	private:
-		Plotter(Core::Plotter* plotter);
-		Core::Plotter* _plotter;
 	};
 }}

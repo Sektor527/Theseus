@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="Core"
-	ProjectGUID="{2A16976F-7FA9-4073-8E13-09F9C5E8A156}"
+	ProjectGUID="{7C6DD026-5AC4-4A5E-A972-CF8C6727892F}"
 	RootNamespace="Core"
 	TargetFrameworkVersion="196613"
 	>
@@ -40,7 +40,6 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(ProjectDir)"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -58,7 +57,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)-d.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -103,7 +101,6 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="$(ProjectDir)"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
@@ -142,26 +139,6 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Data"
-			>
-			<File
-				RelativePath=".\data\Cell.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\data\Cell.h"
-				>
-			</File>
-			<File
-				RelativePath=".\data\Maze.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\data\Maze.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Generators"
 			>
 			<File
@@ -173,18 +150,30 @@
 				>
 			</File>
 		</Filter>
-		<Filter
-			Name="Plotter"
+		<File
+			RelativePath=".\Cell.cpp"
 			>
-			<File
-				RelativePath=".\Plotter\Plotter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Plotter\Plotter.h"
-				>
-			</File>
-		</Filter>
+		</File>
+		<File
+			RelativePath=".\Cell.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Direction.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Maze.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Maze.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Pixel.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

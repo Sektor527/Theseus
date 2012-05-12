@@ -1,8 +1,7 @@
 #include <cstdlib>
 #include <iostream>
-#include "Data/Maze.h"
+#include "Maze.h"
 #include "Generators/GeneratorDepthFirst.h"
-#include "Plotter/Plotter.h"
 
 using namespace Theseus::Core;
 
@@ -33,21 +32,19 @@ int main(int argc, char** argv)
 	GeneratorDepthFirst::generate(maze, conf);
 
 	// Plot maze
-	Plotter* plot = Plotter::plot(maze);
-
-	for (size_t y = 0; y < plot->getSizeHeight(); ++y)
+	for (size_t y = 0; y < maze->getPlotHeight(); ++y)
 	{
-		for (size_t x = 0; x < plot->getSizeWidth(); ++x)
+		for (size_t x = 0; x < maze->getPlotWidth(); ++x)
 		{
 			char c;
-			switch (plot->getPixel(x, y))
+			switch (maze->getPlotPixel(x, y))
 			{
-			case Plotter::Wall:
+			case Wall:
 				c = '*';
 				break;
-			case Plotter::Space:
-			case Plotter::Entrance:
-			case Plotter::Exit:
+			case Space:
+			case Entrance:
+			case Exit:
 			default:
 				c = ' ';
 				break;

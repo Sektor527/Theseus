@@ -17,7 +17,6 @@ namespace WinformsViewer
 	{
 		private Maze _maze;
 		private Avatar _avatar;
-		private Plotter _plot;
 
 		private Graphics _graphics;
 
@@ -35,24 +34,24 @@ namespace WinformsViewer
 
 			if (_maze == null) return;
 
-			for (uint y = 0; y < _plot.getSizeHeight(); ++y)
+			for (uint y = 0; y < _maze.getPlotHeight(); ++y)
 			{
-				for (uint x = 0; x < _plot.getSizeWidth(); ++x)
+				for (uint x = 0; x < _maze.getPlotWidth(); ++x)
 				{
 					// Color
 					Color color;
-					switch (_plot.getPixel(x,y))
+					switch (_maze.getPlotPixel(x,y))
 					{
-						case Plotter.Pixels.Space:
+						case Maze.Pixels.Space:
 							color = Color.White;
 							break;
-						case Plotter.Pixels.Wall:
+						case Maze.Pixels.Wall:
 							color = Color.Black;
 							break;
-						case Plotter.Pixels.Entrance:
+						case Maze.Pixels.Entrance:
 							color = Color.YellowGreen;
 							break;
-						case Plotter.Pixels.Exit:
+						case Maze.Pixels.Exit:
 							color = Color.YellowGreen;
 							break;
 						default:
@@ -94,8 +93,6 @@ namespace WinformsViewer
 					break;
 			}
 
-			_plot = Plotter.plot(_maze);
-
 			_avatar = new Avatar(findEntrance());
 
 			canvas.Refresh();
@@ -103,11 +100,11 @@ namespace WinformsViewer
 
 		private Location findEntrance()
 		{
-			for (uint y = 0; y < _plot.getSizeHeight(); ++y)
+			for (uint y = 0; y < _maze.getPlotHeight(); ++y)
 			{
-				for (uint x = 0; x < _plot.getSizeWidth(); ++x)
+				for (uint x = 0; x < _maze.getPlotWidth(); ++x)
 				{
-					if (_plot.getPixel(x, y) == Plotter.Pixels.Entrance)
+					if (_maze.getPlotPixel(x, y) == Maze.Pixels.Entrance)
 						return new Location(x, y);
 				}
 			}
@@ -152,7 +149,7 @@ namespace WinformsViewer
 					Close();
 					return true;
 				case Keys.W:
-					if (_avatar.Location.Y > 0 && _plot.getPixel(_avatar.Location.X, _avatar.Location.Y - 1) == Plotter.Pixels.Space)
+					if (_avatar.Location.Y > 0 && _maze.getPlotPixel(_avatar.Location.X, _avatar.Location.Y - 1) == Maze.Pixels.Space)
 					{
 						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.White);
 
@@ -162,7 +159,7 @@ namespace WinformsViewer
 					}
 					break;
 				case Keys.D:
-					if (_avatar.Location.X < _plot.getSizeWidth() && _plot.getPixel(_avatar.Location.X + 1, _avatar.Location.Y) == Plotter.Pixels.Space)
+					if (_avatar.Location.X < _maze.getPlotWidth() && _maze.getPlotPixel(_avatar.Location.X + 1, _avatar.Location.Y) == Maze.Pixels.Space)
 					{
 						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.White);
 
@@ -172,7 +169,7 @@ namespace WinformsViewer
 					}
 					break;
 				case Keys.S:
-					if (_avatar.Location.Y < _plot.getSizeHeight() && _plot.getPixel(_avatar.Location.X, _avatar.Location.Y + 1) == Plotter.Pixels.Space)
+					if (_avatar.Location.Y < _maze.getPlotHeight() && _maze.getPlotPixel(_avatar.Location.X, _avatar.Location.Y + 1) == Maze.Pixels.Space)
 					{
 						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.White);
 
@@ -182,7 +179,7 @@ namespace WinformsViewer
 					}
 					break;
 				case Keys.A:
-					if (_avatar.Location.X > 0 && _plot.getPixel(_avatar.Location.X - 1, _avatar.Location.Y) == Plotter.Pixels.Space)
+					if (_avatar.Location.X > 0 && _maze.getPlotPixel(_avatar.Location.X - 1, _avatar.Location.Y) == Maze.Pixels.Space)
 					{
 						DrawBlock(_avatar.Location.X, _avatar.Location.Y, Color.White);
 

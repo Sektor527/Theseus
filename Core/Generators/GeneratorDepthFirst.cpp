@@ -1,6 +1,6 @@
 #include "GeneratorDepthFirst.h"
-#include "Data/Maze.h"
-#include "Data/Cell.h"
+#include "../Maze.h"
+#include "../Cell.h"
 #include <stack>
 #include <algorithm>
 #include <time.h>
@@ -28,7 +28,11 @@ void GeneratorDepthFirst::visit(Cell* cell)
 	{
 		Cell* current = running.top();
 
-		std::vector<Cell*> neighbors = current->getNeighbors();
+		std::vector<Cell*> neighbors;
+		neighbors.push_back(_maze->getCellNeighbor(current,North));
+		neighbors.push_back(_maze->getCellNeighbor(current,East));
+		neighbors.push_back(_maze->getCellNeighbor(current,South));
+		neighbors.push_back(_maze->getCellNeighbor(current,West));
 		if (_configurator.RandomTraverse)
 			shuffle(neighbors);
 
@@ -42,7 +46,7 @@ void GeneratorDepthFirst::visit(Cell* cell)
 
 			finished = false;
 
-			Cell::createPath(current, neighbor);
+			_maze->openPath(current, neighbor);
 			running.push(neighbor);
 			_visitedCells.push_back(neighbor);
 			break;

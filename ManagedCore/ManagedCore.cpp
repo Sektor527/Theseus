@@ -3,9 +3,8 @@
 #include "stdafx.h"
 
 #include "ManagedCore.h"
-#include "Data/Maze.h"
-#include "Data/Cell.h"
-#include "Plotter/Plotter.h"
+#include "Maze.h"
+#include "Cell.h"
 #include "Generators/GeneratorDepthFirst.h"
 
 namespace Theseus { namespace ManagedCore {
@@ -49,6 +48,21 @@ namespace Theseus { namespace ManagedCore {
 		return gcnew Cell(_maze->getExit());
 	}
 
+	unsigned int Maze::getPlotWidth()
+	{
+		return _maze->getPlotWidth();
+	}
+
+	unsigned int Maze::getPlotHeight()
+	{
+		return _maze->getPlotHeight();
+	}
+
+	Maze::Pixels Maze::getPlotPixel(unsigned int x, unsigned int y)
+	{
+		return (Pixels)_maze->getPlotPixel(x, y);
+	}
+
 	Core::Maze* Maze::getMaze()
 	{
 		return _maze;
@@ -79,40 +93,5 @@ namespace Theseus { namespace ManagedCore {
 	void GeneratorDepthFirst::generate(Maze^ maze, ConfiguratorDepthFirst^ configurator)
 	{
 		Core::GeneratorDepthFirst::generate(maze->getMaze(), *configurator->getConfigurator());
-	}
-
-	//////////////////////////////////////////////////////////////////////////
-	// Plotter
-	Plotter^ Plotter::plot(Maze^ maze)
-	{
-		Core::Plotter* plotter = Core::Plotter::plot(maze->getMaze());
-
-		Plotter^ wrapper = gcnew Plotter(plotter);
-		return wrapper;
-	}
-
-	Plotter::Plotter(Core::Plotter* plotter)
-	{
-		_plotter = plotter;
-	}
-
-	Plotter::~Plotter()
-	{
-		delete _plotter;
-	}
-
-	unsigned int Plotter::getSizeWidth()
-	{
-		return _plotter->getSizeWidth();
-	}
-
-	unsigned int Plotter::getSizeHeight()
-	{
-		return _plotter->getSizeHeight();
-	}
-
-	Plotter::Pixels Plotter::getPixel(unsigned int x, unsigned int y)
-	{
-		return (Plotter::Pixels)_plotter->getPixel(x, y);
 	}
 }}

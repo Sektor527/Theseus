@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="CoreTest"
-	ProjectGUID="{B7C92169-E557-4C21-8A22-CE626C196EB6}"
+	ProjectGUID="{09F0C9CE-1CDE-4F82-8F35-C9DF90A16E9C}"
 	RootNamespace="CoreTest"
 	TargetFrameworkVersion="196613"
 	>
@@ -17,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(ProjectDir)/bin"
-			IntermediateDirectory="$(ProjectDir)/bin"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="2"
 			>
@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../gmock-1.6.0/gtest/include;../core"
+				AdditionalIncludeDirectories="&quot;../gmock-1.6.0/gtest/include&quot;;&quot;../gmock-1.6.0/include&quot;;../core"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -58,7 +58,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
@@ -87,8 +86,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(ProjectDir)/bin"
-			IntermediateDirectory="$(ProjectDir)/bin"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
@@ -112,7 +111,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../gmock-1.6.0/gtest/include;../core"
+				AdditionalIncludeDirectories="&quot;../gmock-1.6.0/gtest/include&quot;;&quot;../gmock-1.6.0/include&quot;;../core"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
@@ -129,7 +128,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -162,36 +160,20 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="Data"
+		<File
+			RelativePath=".\CellTest.cpp"
 			>
-			<File
-				RelativePath=".\Data\CellTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Data\MazeTest.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Generators"
-			>
-			<File
-				RelativePath=".\Generators\GeneratorDepthFirstTest.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Plotter"
-			>
-			<File
-				RelativePath=".\Plotter\PlotterTest.cpp"
-				>
-			</File>
-		</Filter>
+		</File>
 		<File
 			RelativePath=".\main.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\MazeTest.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\MockMaze.h"
 			>
 		</File>
 	</Files>
