@@ -172,10 +172,6 @@
 			RelativePath=".\MazeTest.cpp"
 			>
 		</File>
-		<File
-			RelativePath=".\MockMaze.h"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
